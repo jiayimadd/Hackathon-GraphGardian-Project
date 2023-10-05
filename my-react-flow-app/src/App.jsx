@@ -4,6 +4,7 @@ import 'reactflow/dist/style.css';
 
 import initialNodes from './nodes.jsx';
 import initialEdges from './edges.jsx';
+import parentEdges from './parentEdges.jsx';
 
 const rfStyle = {
   backgroundColor: '#D0C0F7',
@@ -11,16 +12,11 @@ const rfStyle = {
 
 export default function App() {
 
-  // const hide = (hidden) => (nodeOrEdge) => {
-  //   nodeOrEdge.hidden = hidden;
-  //   return nodeOrEdge;
-  // };
-
   const isChildNode = (node) => node.parentNode;
 
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
-  const [hidden, setHidden] = useState(false);
+  const [hidden, setHidden] = useState(true);
 
   const onNodesChange = useCallback(
     (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
@@ -49,7 +45,7 @@ export default function App() {
     <div style={{ width: '100vw', height: '100vh' }}>
       <ReactFlow
         nodes={nodes}
-        edges={edges}
+        edges={hidden ? parentEdges : edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
         onConnect={onConnect}
@@ -63,12 +59,12 @@ export default function App() {
         <div style={{ position: 'absolute', left: 10, top: 10, zIndex: 4 }}>
           <div>
             <label htmlFor="ishidden">
-              isHidden
+              showVariables
               <input
                 id="ishidden"
                 type="checkbox"
-                checked={hidden}
-                onChange={(event) => setHidden(event.target.checked)}
+                checked={!hidden}
+                onChange={(event) => setHidden(!event.target.checked)}
                 className="react-flow__ishidden"
               />
             </label>
