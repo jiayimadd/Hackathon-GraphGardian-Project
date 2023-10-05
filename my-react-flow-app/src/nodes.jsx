@@ -50,6 +50,7 @@ const nodes = [
   {
     id: '4',
     data: { label: 'service_fee_collector_job' },
+    selected: true,
     position: { x: 100, y: 250 },
     className: 'light',
     style: { backgroundColor: 'rgba(255, 0, 0, 0.2)', width: 200, height: 200 },
@@ -59,8 +60,8 @@ const nodes = [
     data: { label: 'ServiceFee' },
     position: { x: 10, y: 50 },
     parentNode: '4',
+    // hidden: true,
   },
-
 
 
   {
