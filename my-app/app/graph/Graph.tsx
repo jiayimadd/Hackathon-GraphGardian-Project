@@ -75,7 +75,7 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
 };
 
 const Graph: React.FC = () => {
-  const [showVars, setShowVars] = React.useState(true);
+  const [showVars, setShowVars] = React.useState(false);
   const initialNodes: Node[] = React.useMemo(
     () => getReactFlowNodes(nodesData),
     []
@@ -166,9 +166,10 @@ const Graph: React.FC = () => {
   const edgesWithHighlight = React.useMemo(() => {
     if (selectedNode === undefined) return edges;
     return edges.map((edge) => {
+      const { target, source } = edge;
       if (
-        edge.id.includes(selectedNode.id) ||
-        (selectedNode.parentNode && edge.id.includes(selectedNode.parentNode))
+        source === selectedNode.id ||
+        (selectedNode.parentNode && target === selectedNode.parentNode)
       ) {
         return {
           ...edge,
@@ -223,6 +224,11 @@ const Graph: React.FC = () => {
   }, [layoutEdges, selectedNode, showVars]);
 
   const nodeTypes = React.useMemo(() => ({ job: JobNode, var: VarNode }), []);
+
+  // console.log({
+  //   nodes: showVars ? nodesWithHighlight : nodesNoVars,
+  //   edges: showVars ? edgesWithHighlight : edgesNoVar,
+  // });
 
   return (
     <ReactFlow
