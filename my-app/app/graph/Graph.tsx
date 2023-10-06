@@ -39,6 +39,7 @@ import {
 import JobNode from "./JobNode";
 import VarNode from "./VarNode";
 import Select from "react-select";
+import ContextMenu, { ContextMenuProps } from "./ContextMenu";
 
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
@@ -131,7 +132,6 @@ const Graph: React.FC = () => {
 
   const onSelectionChange: OnSelectionChangeFunc = React.useCallback(
     ({ nodes, edges }) => {
-      console.log("wow");
       if (nodes.length > 0) {
         setSelectedNode(nodes[0]);
       } else {
@@ -151,12 +151,6 @@ const Graph: React.FC = () => {
     unselectAll();
     setSelectedNode(undefined);
   }, [showVars, unselectAll]);
-
-  React.useEffect(() => {
-    if (selectedNode === undefined) {
-      console.log(document.getElementById("node-select-input"));
-    }
-  }, [selectedNode]);
 
   const nodesWithHighlight = React.useMemo(() => {
     if (selectedNode === undefined) return nodes;
@@ -247,6 +241,37 @@ const Graph: React.FC = () => {
 
   const nodeTypes = React.useMemo(() => ({ job: JobNode, var: VarNode }), []);
 
+  const [menu, setMenu] = React.useState<ContextMenuProps | null>(null);
+  const ref = React.useRef<HTMLDivElement | null>(null);
+  const onNodeContextMenu: NodeMouseHandler = React.useCallback(
+    (event, node) => {
+      // Prevent native context menu from showing
+      event.preventDefault();
+
+      if (!ref.current) return;
+
+      // Calculate position of the context menu. We want to make sure it
+      // doesn't get positioned off-screen.
+      const pane = ref.current.getBoundingClientRect();
+      setMenu({
+        id: node!.id,
+        top: event.clientY < pane.height - 200 ? event.clientY : undefined,
+        left: event.clientX < pane.width - 200 ? event.clientX : undefined,
+        right:
+          event.clientX >= pane.width - 200
+            ? pane.width - event.clientX
+            : undefined,
+        bottom:
+          event.clientY >= pane.height - 200
+            ? pane.height - event.clientY
+            : undefined,
+      });
+    },
+    [setMenu]
+  );
+  // Close the context menu if it's open whenever the window is clicked.
+  const onPaneClick = React.useCallback(() => setMenu(null), [setMenu]);
+
   // console.log({
   //   nodes: showVars ? nodesWithHighlight : nodesNoVars,
   //   edges: showVars ? edgesWithHighlight : edgesNoVar,
@@ -254,6 +279,7 @@ const Graph: React.FC = () => {
 
   return (
     <ReactFlow
+      ref={ref}
       nodes={showVars ? nodesWithHighlight : nodesNoVars}
       edges={showVars ? edgesWithHighlight : edgesNoVar}
       onSelectionChange={onSelectionChange}
@@ -261,6 +287,8 @@ const Graph: React.FC = () => {
       onNodesChange={onNodesChange}
       onConnect={onConnect}
       nodeTypes={nodeTypes}
+      onNodeContextMenu={onNodeContextMenu}
+      onPaneClick={onPaneClick}
       // zoomOnDoubleClick={false}
       // zoomOnPinch={false}
       zoomOnScroll={false}
@@ -339,6 +367,7 @@ const Graph: React.FC = () => {
           </div>
         </div>
       </Panel>
+      {menu && <ContextMenu onClick={onPaneClick} {...menu} />}
     </ReactFlow>
   );
 };
