@@ -12,6 +12,9 @@ import { dependencyMap } from "./data";
 export interface JobNodeData {
   label: string;
   highlighted?: boolean;
+  hideVars?: boolean;
+  description?: string;
+  codeLink?: string;
 }
 
 export type JobNodeType = Node<JobNodeData>;
@@ -22,21 +25,21 @@ const JobNode: React.FC<NodeProps<JobNodeData>> = ({
   selected,
   ...rest
 }) => {
-  const { label, highlighted } = data;
+  const { label, highlighted, hideVars, description } = data;
 
   const size = React.useMemo(
     () => ({
       width: CONTAINER_WIDTH,
-      height: getContainerHeight(dependencyMap[id].vars.length),
+      height: getContainerHeight(hideVars ? 0 : dependencyMap[id].vars.length),
     }),
-    [id]
+    [hideVars, id]
   );
   // console.log(rest);
   return (
     <div
       id={id}
       data-tooltip-id={id}
-      data-tooltip-content={label}
+      data-tooltip-content={description}
       data-tooltip-place="top"
       className="flex flex-col p-4"
       style={{
@@ -62,7 +65,7 @@ const JobNode: React.FC<NodeProps<JobNodeData>> = ({
           display: "flex",
           flexDirection: "row",
           justifyContent: "center",
-          alignItems: "flex-start",
+          alignItems: hideVars ? "center" : "flex-start",
           overflowWrap: "anywhere",
           color: selected ? "#191919" : highlighted ? "#313131" : "#606060",
         }}
@@ -71,7 +74,7 @@ const JobNode: React.FC<NodeProps<JobNodeData>> = ({
       </div>
       <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
-      <Tooltip id={id} />
+      {description && <Tooltip id={id} />}
     </div>
   );
 };

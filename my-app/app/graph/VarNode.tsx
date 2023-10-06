@@ -12,6 +12,8 @@ import { dependencyMap } from "./data";
 export interface VarNodeData {
   label: string;
   highlighted?: boolean;
+  description?: string;
+  codeLink?: string;
 }
 
 export type VarNodeType = Node<VarNodeData>;
@@ -22,7 +24,7 @@ const VarNode: React.FC<NodeProps<VarNodeData>> = ({
   selected,
   ...rest
 }) => {
-  const { label, highlighted } = data;
+  const { label, highlighted, description } = data;
 
   const highlight = Boolean(selected || highlighted);
 
@@ -32,17 +34,17 @@ const VarNode: React.FC<NodeProps<VarNodeData>> = ({
     <div
       id={id}
       data-tooltip-id={id}
-      data-tooltip-content={label}
+      data-tooltip-content={description || "No description."}
       data-tooltip-place="top"
-      className="flex flex-col p-4"
+      className="flex flex-row justify-center items-center px-4"
       style={{
         backgroundColor: selected
           ? "#d7f5f5"
           : highlighted
-          ? "#ecfcfc"
+          ? "#d7f5f5"
           : "white",
         borderStyle: "solid",
-        borderColor: selected ? "#00666d" : highlighted ? "#00838a" : "#e7e7e7",
+        borderColor: selected ? "#00666d" : highlighted ? "#00666d" : "#e7e7e7",
         borderWidth: selected ? 2 : 1,
         borderRadius: 8,
         ...size,
@@ -62,7 +64,7 @@ const VarNode: React.FC<NodeProps<VarNodeData>> = ({
       </div>
       <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
-      <Tooltip id={id} />
+      <Tooltip id={id} style={{ zIndex: 999 }} />
     </div>
   );
 };

@@ -5,6 +5,7 @@ import ReactFlow, {
   applyEdgeChanges,
   applyNodeChanges,
   Background,
+  Controls,
   Edge,
   EdgeMarker,
   MarkerType,
@@ -14,6 +15,7 @@ import ReactFlow, {
   OnEdgesChange,
   OnNodesChange,
   OnSelectionChangeFunc,
+  Panel,
   Position,
 } from "reactflow";
 import "reactflow/dist/style.css";
@@ -28,18 +30,19 @@ import {
 } from "./data";
 import JobNode from "./JobNode";
 import VarNode from "./VarNode";
+import { CONTAINER_WIDTH, getContainerHeight } from "./layout";
 
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
-
-const nodeWidth = 200;
-const nodeHeight = 200;
 
 const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
   dagreGraph.setGraph({ rankdir: "LR" });
 
   nodes.forEach((node) => {
-    dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
+    dagreGraph.setNode(node.id, {
+      width: node.style!.width!,
+      height: node.style!.height!,
+    });
   });
 
   edges.forEach((edge) => {
@@ -53,12 +56,16 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
     const nodeWithPosition = dagreGraph.node(node.id);
     node.targetPosition = Position.Left;
     node.sourcePosition = Position.Right;
+    const size = {
+      width: node.style!.width! as number,
+      height: node.style!.height! as number,
+    };
 
     // We are shifting the dagre node position (anchor=center center) to the top left
     // so it matches the React Flow node anchor point (top left).
     node.position = {
-      x: nodeWithPosition.x - nodeWidth / 2,
-      y: nodeWithPosition.y - nodeHeight / 2,
+      x: nodeWithPosition.x - size.width / 2,
+      y: nodeWithPosition.y - size.height / 2,
     };
     return {
       ...acc,
@@ -68,6 +75,7 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
 };
 
 const Graph: React.FC = () => {
+  const [showVars, setShowVars] = React.useState(true);
   const initialNodes: Node[] = React.useMemo(
     () => getReactFlowNodes(nodesData),
     []
@@ -158,13 +166,6 @@ const Graph: React.FC = () => {
   const edgesWithHighlight = React.useMemo(() => {
     if (selectedNode === undefined) return edges;
     return edges.map((edge) => {
-      console.log(
-        edge.id,
-        selectedNode.id,
-        selectedNode.parentNode,
-        edge.id.includes(selectedNode.id) ||
-          (selectedNode.parentNode && edge.id.includes(selectedNode.parentNode))
-      );
       if (
         edge.id.includes(selectedNode.id) ||
         (selectedNode.parentNode && edge.id.includes(selectedNode.parentNode))
@@ -185,12 +186,48 @@ const Graph: React.FC = () => {
     });
   }, [selectedNode, edges]);
 
+  const nodesNoVars = React.useMemo(() => {
+    if (showVars) return [];
+    const layouted = getLayoutedElements(
+      getReactFlowLayoutNodes(nodesWithHighlight.filter((n) => !n.parentNode)),
+      layoutEdges
+    );
+    return Object.values(layouted).map((node) => ({
+      ...node,
+      data: { ...node.data, hideVars: true },
+    }));
+  }, [layoutEdges, nodesWithHighlight, showVars]);
+
+  const edgesNoVar = React.useMemo(() => {
+    if (showVars) return layoutEdges;
+    if (selectedNode === undefined) return layoutEdges;
+    return layoutEdges.map((edge) => {
+      if (
+        edge.id.includes(selectedNode.id) ||
+        (selectedNode.parentNode && edge.id.includes(selectedNode.parentNode))
+      ) {
+        return {
+          ...edge,
+          style: { ...edge.style, stroke: "#00838a", strokeWidth: 2 },
+          markerEnd: {
+            ...(edge.markerEnd as EdgeMarker),
+            color: "#00838a",
+            width: 20,
+            height: 20,
+          },
+          zIndex: 99,
+        };
+      }
+      return edge;
+    });
+  }, [layoutEdges, selectedNode, showVars]);
+
   const nodeTypes = React.useMemo(() => ({ job: JobNode, var: VarNode }), []);
 
   return (
     <ReactFlow
-      nodes={nodesWithHighlight}
-      edges={edgesWithHighlight}
+      nodes={showVars ? nodesWithHighlight : nodesNoVars}
+      edges={showVars ? edgesWithHighlight : edgesNoVar}
       onSelectionChange={onSelectionChange}
       onEdgesChange={onEdgesChange}
       onNodesChange={onNodesChange}
@@ -203,9 +240,24 @@ const Graph: React.FC = () => {
       // panOnDrag={false}
       nodesConnectable={false}
       fitView
+      minZoom={0.1}
       style={{ backgroundColor: "#f7f7f7" }}
       attributionPosition="top-right"
-    ></ReactFlow>
+    >
+      <Controls />
+      <Panel position="top-center" style={{ zIndex: 99, margin: 0 }}>
+        <div className="w-screen h-[60px] bg-white rounded flex flex-row items-center justify-center">
+          <button
+            className="bg-[#e7e7e7] rounded-full h-[40px] px-[12px] font-[13px] font-[600]"
+            onClick={() => {
+              setShowVars((prev) => !prev);
+            }}
+          >
+            {showVars ? "Hide" : "Show"} Vars
+          </button>
+        </div>
+      </Panel>
+    </ReactFlow>
   );
 };
 
