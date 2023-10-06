@@ -15,7 +15,14 @@ import ReactFlow, {
 } from "reactflow";
 import "reactflow/dist/style.css";
 import dagre from "dagre";
-import { nodes as nodesData, dependencyMap } from "./data";
+import {
+  nodes as nodesData,
+  dependencyMap,
+  getReactFlowNodes,
+  getReactFlowEdges,
+  getReactFlowLayoutEdges,
+  getReactFlowLayoutNodes,
+} from "./data";
 import JobNode from "./JobNode";
 
 const dagreGraph = new dagre.graphlib.Graph();
@@ -27,7 +34,7 @@ const nodeHeight = 200;
 const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
   dagreGraph.setGraph({ rankdir: "LR" });
 
-  const visited = nodes.forEach((node) => {
+  nodes.forEach((node) => {
     dagreGraph.setNode(node.id, { width: nodeWidth, height: nodeHeight });
   });
 
@@ -37,10 +44,11 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
 
   dagre.layout(dagreGraph);
 
-  nodes.forEach((node) => {
+  return nodes.reduce((acc, cur) => {
+    const node = { ...cur };
     const nodeWithPosition = dagreGraph.node(node.id);
-    node.targetPosition = Position.Left;
-    node.sourcePosition = Position.Right;
+    node.targetPosition = Position.Right;
+    node.sourcePosition = Position.Left;
 
     // We are shifting the dagre node position (anchor=center center) to the top left
     // so it matches the React Flow node anchor point (top left).
@@ -48,48 +56,53 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
       x: nodeWithPosition.x - nodeWidth / 2,
       y: nodeWithPosition.y - nodeHeight / 2,
     };
-
-    return node;
-  });
-
-  return { nodes, edges };
+    return {
+      ...acc,
+      [cur.id]: node,
+    };
+  }, {} as Record<string, Node>);
 };
 
 const Graph: React.FC = () => {
-  const initialNodes: Node[] = React.useMemo(() => {
-    return nodesData.map(
-      (node) =>
-        ({
-          ...node,
-          position: { x: 0, y: 0 },
-          sourcePosition: "left",
-          targetPosition: "right",
-          style: node.parentNode
-            ? { backgroundColor: "rgba(0, 0, 0, 0.1)" }
-            : {
-                backgroundColor: "rgba(0, 0, 0, 0.1)",
-                width: 200,
-                height: 200,
-              },
-        } as Node)
-    );
-  }, []);
+  const initialNodes: Node[] = React.useMemo(
+    () => getReactFlowNodes(nodesData),
+    []
+  );
+  const initialEdges = React.useMemo(
+    () => getReactFlowEdges(dependencyMap),
+    []
+  );
 
-  const initialEdges = React.useMemo(() => {
-    return Object.entries(dependencyMap).reduce((acc, cur) => {
-      const [jobId, dependencyMap] = cur;
-      return [
-        ...acc,
-        ...dependencyMap.dependencyVars.map((varId) => ({
-          id: `${varId}-${jobId}`,
-          source: varId,
-          target: jobId,
-          animated: false,
-        })),
-      ];
-    }, [] as Edge[]);
-  }, []);
-  const [nodes, setNodes] = React.useState(initialNodes);
+  const layoutNodes = React.useMemo(
+    () => getReactFlowLayoutNodes(nodesData),
+    []
+  );
+  const layoutEdges = React.useMemo(
+    () => getReactFlowLayoutEdges(dependencyMap),
+    []
+  );
+
+  const layoutedNodes = React.useMemo(
+    () => getLayoutedElements(layoutNodes, layoutEdges),
+    [layoutNodes, layoutEdges]
+  );
+
+  const mergedNodes = React.useMemo(() => {
+    let merged: Node[] = [];
+
+    for (const n of initialNodes) {
+      if (layoutedNodes[n.id]) {
+        merged.push(layoutedNodes[n.id]);
+      } else {
+        merged.push(n);
+      }
+    }
+    return merged;
+  }, [initialNodes, layoutedNodes]);
+
+  console.log(mergedNodes);
+
+  const [nodes, setNodes] = React.useState(mergedNodes);
   const [edges, setEdges] = React.useState(initialEdges);
 
   const onNodesChange: OnNodesChange = React.useCallback(

@@ -132,8 +132,8 @@ export const getReactFlowNodes = (nodesData: NodeData[]): Node[] => {
       ({
         ...node,
         position: { x: 0, y: 0 },
-        sourcePosition: "left",
-        targetPosition: "right",
+        sourcePosition: "right",
+        targetPosition: "left",
         style: node.parentNode
           ? { backgroundColor: "rgba(0, 0, 0, 0.1)" }
           : {
@@ -169,9 +169,12 @@ export const getReactFlowLayoutNodes = (nodesData: NodeData[]): Node[] => {
         ({
           ...node,
           position: { x: 0, y: 0 },
-          sourcePosition: "left",
-          targetPosition: "right",
-          style: {},
+          sourcePosition: "right",
+          targetPosition: "left",
+          style: {
+            width: 200,
+            height: 200,
+          },
         } as Node)
     );
 };
