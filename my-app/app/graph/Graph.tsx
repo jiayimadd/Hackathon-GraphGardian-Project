@@ -146,7 +146,9 @@ const Graph: React.FC = () => {
     const connected: Record<string, boolean> = [
       ...(selectedNode.parentNode ? [selectedNode.parentNode] : []),
       ...dependencyMap[id].dependents.filter((dependentJobId) =>
-        dependencyMap[dependentJobId].dependencyVars.includes(selectedNode.id)
+        dependencyMap[dependentJobId].dependencyVars.find((v) =>
+          v.includes(selectedNode.id)
+        )
       ),
       ...dependencyMap[id].dependencyVars,
       ...dependencyMap[id].dependencyJobs,

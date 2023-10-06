@@ -46,16 +46,15 @@ export const nodes: NodeData[] = [
       label: "credit_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/CreditJobCreator.kt",
-      description: "generate consumer'savailable credits",
     },
   },
   {
     id: "credit_job/AvailableCredit",
-    parentNode: "credit_job",
     data: {
       label: "AvailableCredit",
       description: "Configuration of available credit for each cx",
     },
+    parentNode: "credit_job",
   },
   {
     id: "delivery_fee_job",
@@ -63,24 +62,23 @@ export const nodes: NodeData[] = [
       label: "delivery_fee_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/DeliveryFeeJobCreator.kt",
-      description: "generate delivery fee for each cart",
     },
   },
   {
     id: "delivery_fee_job/DeliveryFee",
-    parentNode: "delivery_fee_job",
     data: {
       label: "DeliveryFee",
       description: "Original delivery fee",
     },
+    parentNode: "delivery_fee_job",
   },
   {
     id: "delivery_fee_job/ExtraSosDeliveryFee",
-    parentNode: "delivery_fee_job",
     data: {
       label: "ExtraSosDeliveryFee",
       description: "Original delivery fee",
     },
+    parentNode: "delivery_fee_job",
   },
   {
     id: "delivery_option_job",
@@ -88,25 +86,23 @@ export const nodes: NodeData[] = [
       label: "delivery_option_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/DeliveryOptionJobCreator.kt",
-      description:
-        "collect quotes based on different delivery option and added into preview orderQuote (option selected)",
     },
   },
   {
     id: "delivery_option_job/PriorityFee",
-    parentNode: "delivery_option_job",
     data: {
       label: "PriorityFee",
       description: "Priority fee amount",
     },
+    parentNode: "delivery_option_job",
   },
   {
     id: "delivery_option_job/DeliveryTrainsDiscountConfigVar",
-    parentNode: "delivery_option_job",
     data: {
       label: "DeliveryTrainsDiscountConfigVar",
       description: "configuration for no rush delivery",
     },
+    parentNode: "delivery_option_job",
   },
   {
     id: "delivery_option_quote_job",
@@ -114,17 +110,15 @@ export const nodes: NodeData[] = [
       label: "delivery_option_quote_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/DeliveryOptionQuoteJobCreator.kt",
-      description:
-        "generate quotes based on different delivery option (option not selected)",
     },
   },
   {
     id: "delivery_option_quote_job/DeliveryOptionQuoteVar",
-    parentNode: "delivery_option_quote_job",
     data: {
       label: "DeliveryOptionQuoteVar",
       description: "configuration of each delivery option",
     },
+    parentNode: "delivery_option_quote_job",
   },
   {
     id: "eligible_subscription_job",
@@ -132,27 +126,25 @@ export const nodes: NodeData[] = [
       label: "eligible_subscription_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/EligibleSubscriptionJobCreator.kt",
-      description:
-        "generate potential subscription discount and upsell the dashpass plan to consumers",
     },
   },
   {
     id: "eligible_subscription_job/EligibleSubscriptionDiscount",
-    parentNode: "eligible_subscription_job",
     data: {
       label: "EligibleSubscriptionDiscount",
       description:
         "Discount configuration on subscription with cx, mx, plan criterions",
     },
+    parentNode: "eligible_subscription_job",
   },
   {
     id: "eligible_subscription_job/TrulyFreeDeliveryExperimentEligibleServiceFeeRate",
-    parentNode: "eligible_subscription_job",
     data: {
       label: "TrulyFreeDeliveryExperimentEligibleServiceFeeRate",
       description:
         "This is the service rate used tor DP upsells. It tells consumer what the service rate when the consumer is eligbie for truly free delivery",
     },
+    parentNode: "eligible_subscription_job",
   },
   {
     id: "generic_fee_job",
@@ -160,24 +152,23 @@ export const nodes: NodeData[] = [
       label: "generic_fee_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/GenericFeeJobCreator.kt",
-      description: "generate fees required by government or by law",
     },
   },
   {
     id: "generic_fee_job/GenericFees",
-    parentNode: "generic_fee_job",
     data: {
       label: "GenericFees",
       description: "fees required by government or by law",
     },
+    parentNode: "generic_fee_job",
   },
   {
     id: "generic_fee_job/LegislativeFeeVar",
-    parentNode: "generic_fee_job",
     data: {
       label: "LegislativeFeeVar",
       description: "fees required by government or by law",
     },
+    parentNode: "generic_fee_job",
   },
   {
     id: "min_order_fee_job",
@@ -185,25 +176,24 @@ export const nodes: NodeData[] = [
       label: "min_order_fee_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/MinOrderFeeJobCreator.kt",
-      description: "generate configuration for min order fee",
     },
   },
   {
     id: "min_order_fee_job/MinOrderSubtotalSetting",
-    parentNode: "min_order_fee_job",
     data: {
       label: "MinOrderSubtotalSetting",
       description: "The subtotal threshold for min order fee",
     },
+    parentNode: "min_order_fee_job",
   },
   {
     id: "min_order_fee_job/MinOrderFeeSetting",
-    parentNode: "min_order_fee_job",
     data: {
       label: "MinOrderFeeSetting",
       description:
         "Sub market level min order fee. And this value is adjusted by service fee min.",
     },
+    parentNode: "min_order_fee_job",
   },
   {
     id: "recurring_delivery_discount_job",
@@ -211,16 +201,15 @@ export const nodes: NodeData[] = [
       label: "recurring_delivery_discount_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/RecurringDeliveryDiscountJobCreator.kt",
-      description: "generate discount percentage if it is recurring delivery",
     },
   },
   {
     id: "recurring_delivery_discount_job/RecurringDeliveryDiscountVar",
-    parentNode: "recurring_delivery_discount_job",
     data: {
       label: "RecurringDeliveryDiscountVar",
       description: "Recurring delivery discounts for subtotal",
     },
+    parentNode: "recurring_delivery_discount_job",
   },
   {
     id: "service_fee_job",
@@ -228,16 +217,15 @@ export const nodes: NodeData[] = [
       label: "service_fee_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/ServiceFeeJobCreator.kt",
-      description: "generate service rate for each mx",
     },
   },
   {
     id: "service_fee_job/ServiceRate",
-    parentNode: "service_fee_job",
     data: {
       label: "ServiceRate",
       description: "Service rate percentage",
     },
+    parentNode: "service_fee_job",
   },
   {
     id: "subscription_job",
@@ -245,36 +233,34 @@ export const nodes: NodeData[] = [
       label: "subscription_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/SubscriptionJobCreator.kt",
-      description:
-        "generate subscription discount based on current subscription plan",
     },
   },
   {
     id: "subscription_job/SubscriptionDiscount",
-    parentNode: "subscription_job",
     data: {
       label: "SubscriptionDiscount",
       description:
         "This includes subscription's discount details, such as dp users' delivery fee and service fee",
     },
+    parentNode: "subscription_job",
   },
   {
     id: "subscription_job/SubscriptionDetail",
-    parentNode: "subscription_job",
     data: {
       label: "SubscriptionDetail",
       description:
         "This includes the details about s subscription plan, such as subscription id.",
     },
+    parentNode: "subscription_job",
   },
   {
     id: "subscription_job/TrulyFreeDeliveryExperimentServiceFeeRate",
-    parentNode: "subscription_job",
     data: {
       label: "TrulyFreeDeliveryExperimentServiceFeeRate",
       description:
         "This is the service rate when the consumer is eligible for truly free delivery.",
     },
+    parentNode: "subscription_job",
   },
   {
     id: "subtotal_job",
@@ -282,16 +268,15 @@ export const nodes: NodeData[] = [
       label: "subtotal_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/SubtotalJobCreator.kt",
-      description: "generate subtotal for each cart",
     },
   },
   {
     id: "subtotal_job/Subtotal",
-    parentNode: "subtotal_job",
     data: {
       label: "Subtotal",
       description: "This the original cart subtotal.",
     },
+    parentNode: "subtotal_job",
   },
   {
     id: "delivery_option_quote_collector_job",
@@ -303,19 +288,19 @@ export const nodes: NodeData[] = [
   },
   {
     id: "delivery_option_quote_collector_job/NoRushDeliveryOptionDiscountQuoteVar",
-    parentNode: "delivery_option_quote_collector_job",
     data: {
       label: "NoRushDeliveryOptionDiscountQuoteVar",
       description: "Discount amount value for no rush delivery option",
     },
+    parentNode: "delivery_option_quote_collector_job",
   },
   {
     id: "delivery_option_quote_collector_job/ScheduleDeliveryOptionDiscountQuoteVar",
-    parentNode: "delivery_option_quote_collector_job",
     data: {
       label: "ScheduleDeliveryOptionDiscountQuoteVar",
       description: "Scheduled delivery discounts",
     },
+    parentNode: "delivery_option_quote_collector_job",
   },
   {
     id: "min_order_fee_collector_job",
@@ -323,33 +308,32 @@ export const nodes: NodeData[] = [
       label: "min_order_fee_collector_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/MinOrderFeeCollectorJobCreator.kt",
-      description: "collect min order fee based on subtotal and configuration",
     },
   },
   {
     id: "min_order_fee_collector_job/MinOrderFee",
-    parentNode: "min_order_fee_collector_job",
     data: {
       label: "MinOrderFee",
       description:
         "Small order fee. This is a charge to consumer when the subtotal is below a threshold",
     },
+    parentNode: "min_order_fee_collector_job",
   },
   {
     id: "min_order_fee_collector_job/MinOrderSubtotal",
-    parentNode: "min_order_fee_collector_job",
     data: {
       label: "MinOrderSubtotal",
       description: "The subtotal threshold for min order fee",
     },
+    parentNode: "min_order_fee_collector_job",
   },
   {
     id: "min_order_fee_collector_job/MinOrderAdditionalSubtotal",
-    parentNode: "min_order_fee_collector_job",
     data: {
       label: "MinOrderAdditionalSubtotal",
       description: "Add this amount to avoid min order fee.",
     },
+    parentNode: "min_order_fee_collector_job",
   },
   {
     id: "service_fee_collector_job",
@@ -357,17 +341,16 @@ export const nodes: NodeData[] = [
       label: "service_fee_collector_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/ServiceFeeCollectorJobCreator.kt",
-      description: "collect service fee bsed on subtotal and service rate",
     },
   },
   {
     id: "service_fee_collector_job/ServiceFee",
-    parentNode: "service_fee_collector_job",
     data: {
       label: "ServiceFee",
       description:
         "Service fee. This var includes the adjustment by service fee min",
     },
+    parentNode: "service_fee_collector_job",
   },
   {
     id: "train_discount_collector_job",
@@ -375,16 +358,15 @@ export const nodes: NodeData[] = [
       label: "train_discount_collector_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/TrainDiscountCollectorJobCreator.kt",
-      description: "generates delivery train discount amount based on subtotal",
     },
   },
   {
     id: "train_discount_collector_job/DeliveryTrainsDiscountAmountVar",
-    parentNode: "train_discount_collector_job",
     data: {
       label: "DeliveryTrainsDiscountAmountVar",
       description: "final discount amount and info for no rush delivery",
     },
+    parentNode: "train_discount_collector_job",
   },
   {
     id: "bundle_fee_discount_collector_job",
@@ -392,25 +374,23 @@ export const nodes: NodeData[] = [
       label: "bundle_fee_discount_collector_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/BundleFeeDiscountCollectorJobCreator.kt",
-      description:
-        "collects post checkout bundle order specific fee discount amount",
     },
   },
   {
     id: "bundle_fee_discount_collector_job/BundleDiscountDeliveryFeeDiscountAmountVar",
-    parentNode: "bundle_fee_discount_collector_job",
     data: {
       label: "BundleDiscountDeliveryFeeDiscountAmountVar",
       description: "Delivery fee discount amount for bundle cart",
     },
+    parentNode: "bundle_fee_discount_collector_job",
   },
   {
     id: "bundle_fee_discount_collector_job/BundleDiscountSmallOrderFeeDiscountAmountVar",
-    parentNode: "bundle_fee_discount_collector_job",
     data: {
       label: "BundleDiscountSmallOrderFeeDiscountAmountVar",
       description: "Small order fee discount amount for bundle cart",
     },
+    parentNode: "bundle_fee_discount_collector_job",
   },
   {
     id: "eligible_subscription_collector_job",
@@ -418,34 +398,33 @@ export const nodes: NodeData[] = [
       label: "eligible_subscription_collector_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/EligibleSubscriptionCollectorJobCreator.kt",
-      description: "generates eligible subscription discounted fees and rates",
     },
   },
   {
     id: "eligible_subscription_collector_job/EligibleSubscriptionDiscountedServiceRate",
-    parentNode: "eligible_subscription_collector_job",
     data: {
       label: "EligibleSubscriptionDiscountedServiceRate",
       description:
         "Service rate discount amount introduced by eligible subscription",
     },
+    parentNode: "eligible_subscription_collector_job",
   },
   {
     id: "eligible_subscription_collector_job/EligibleSubscriptionDiscountedServiceFee",
-    parentNode: "eligible_subscription_collector_job",
     data: {
       label: "EligibleSubscriptionDiscountedServiceFee",
       description:
         "Service fee discount amount introduced by eligible subscription",
     },
+    parentNode: "eligible_subscription_collector_job",
   },
   {
     id: "eligible_subscription_collector_job/EligibleSubscriptionDiscountedDeliveryFee",
-    parentNode: "eligible_subscription_collector_job",
     data: {
       label: "EligibleSubscriptionDiscountedDeliveryFee",
       description: "Original delivery fee",
     },
+    parentNode: "eligible_subscription_collector_job",
   },
   {
     id: "subscription_collector_job",
@@ -453,75 +432,74 @@ export const nodes: NodeData[] = [
       label: "subscription_collector_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/SubscriptionCollectorJobCreator.kt",
-      description: "collect subscription payment method",
     },
   },
   {
     id: "subscription_collector_job/SubscriptionAdditionalSubtotal",
-    parentNode: "subscription_collector_job",
     data: {
       label: "SubscriptionAdditionalSubtotal",
       description:
         "This is used for upsells. Add $X to get Dashpass discounts.",
     },
+    parentNode: "subscription_collector_job",
   },
   {
     id: "subscription_collector_job/SubscriptionBenefitsApplied",
-    parentNode: "subscription_collector_job",
     data: {
       label: "SubscriptionBenefitsApplied",
       description: "It indicates whether DashPass discounts is applied.",
     },
+    parentNode: "subscription_collector_job",
   },
   {
     id: "subscription_collector_job/SubscriptionDiscountedDeliveryFee",
-    parentNode: "subscription_collector_job",
     data: {
       label: "SubscriptionDiscountedDeliveryFee",
       description: "Original delivery fee",
     },
+    parentNode: "subscription_collector_job",
   },
   {
     id: "subscription_collector_job/SubscriptionDiscountedServiceFee",
-    parentNode: "subscription_collector_job",
     data: {
       label: "SubscriptionDiscountedServiceFee",
       description:
         "Service fee. This var includes the adjustment by service fee min",
     },
+    parentNode: "subscription_collector_job",
   },
   {
     id: "subscription_collector_job/SubscriptionDiscountedServiceRate",
-    parentNode: "subscription_collector_job",
     data: {
       label: "SubscriptionDiscountedServiceRate",
       description: "Service rate percentage",
     },
+    parentNode: "subscription_collector_job",
   },
   {
     id: "subscription_collector_job/SubscriptionDiscountFlatRate",
-    parentNode: "subscription_collector_job",
     data: {
       label: "SubscriptionDiscountFlatRate",
       description: "This is the flat rate for lunch pass users.",
     },
+    parentNode: "subscription_collector_job",
   },
   {
     id: "subscription_collector_job/TrulyFreeDeliveryExperimentServiceFee",
-    parentNode: "subscription_collector_job",
     data: {
       label: "TrulyFreeDeliveryExperimentServiceFee",
       description:
         "Service fee. This var includes the adjustment by service fee min",
     },
+    parentNode: "subscription_collector_job",
   },
   {
     id: "subscription_collector_job/DummyAdjustment",
-    parentNode: "subscription_collector_job",
     data: {
       label: "DummyAdjustment",
       description: "Dummy Adjust for payment method",
     },
+    parentNode: "subscription_collector_job",
   },
   {
     id: "promotion_collector_job",
@@ -529,17 +507,16 @@ export const nodes: NodeData[] = [
       label: "promotion_collector_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/PromotionCollectorJobCreator.kt",
-      description: "collects promotions, validates and generates discount info",
     },
   },
   {
     id: "promotion_collector_job/AppliedPromotion",
-    parentNode: "promotion_collector_job",
     data: {
       label: "AppliedPromotion",
       description:
         "Discounts retrieved from Promotion service after filtering and mapping",
     },
+    parentNode: "promotion_collector_job",
   },
   {
     id: "promotion_discount_collector_job",
@@ -547,163 +524,161 @@ export const nodes: NodeData[] = [
       label: "promotion_discount_collector_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/PromotionDiscountCollectorJobCreator.kt",
-      description:
-        "generates promotion subtotal, discounts by fees, and itemized promotion results",
     },
   },
   {
     id: "promotion_discount_collector_job/ExpandedRangeFee",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "ExpandedRangeFee",
       description: "Expanded range fee discount breakdowns for meal plans.",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "promotion_discount_collector_job/ItemLevelPromotion",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "ItemLevelPromotion",
       description: "best itemLevel promotion discount",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "promotion_discount_collector_job/LunchpassPromotion",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "LunchpassPromotion",
       description: "best lunch pass promotion discount",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "promotion_discount_collector_job/PostMerchantDiscountedSubtotalVar",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "PostMerchantDiscountedSubtotalVar",
       description:
         "Post merchant promotion subtotal and fee information for tax calculation",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "promotion_discount_collector_job/PromotionAdditionalDiscountPercentMaxValue",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "PromotionAdditionalDiscountPercentMaxValue",
       description: "Promotion max discount amount",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "promotion_discount_collector_job/PromotionAdditionalFlatValueSaving",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "PromotionAdditionalFlatValueSaving",
       description: "Promotion flat amount discount",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "promotion_discount_collector_job/PromotionAdditionalPercentageSaving",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "PromotionAdditionalPercentageSaving",
       description: "Promotion percentage discount value",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "promotion_discount_collector_job/PromotionAdditionalSubtotal",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "PromotionAdditionalSubtotal",
       description: "Additional subtotal needed to be qualified for promotion",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "promotion_discount_collector_job/PromotionCreditsback",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "PromotionCreditsback",
       description: "Best credits back promotion discount",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "promotion_discount_collector_job/PromotionDeliveryFeeDiscount",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "PromotionDeliveryFeeDiscount",
       description: "Best delivery fee promotion discount",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "promotion_discount_collector_job/PromotionMinSubtotal",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "PromotionMinSubtotal",
       description: "Promotion minimum subtotal requirements",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "promotion_discount_collector_job/PromotionServiceFeeDiscount",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "PromotionServiceFeeDiscount",
       description: "best service fee promotion discount",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "promotion_discount_collector_job/PromotionSmallOrderFeeDiscount",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "PromotionSmallOrderFeeDiscount",
       description: "best small order fee promotion discount",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "promotion_discount_collector_job/PromotionValueDiscount",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "PromotionValueDiscount",
       description: "best subtotal level promotion discount",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "promotion_discount_collector_job/StackableItemLevelPromotion",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "StackableItemLevelPromotion",
       description: "best itemLevel promotion discount",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "promotion_discount_collector_job/NudgePromotionVar",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "NudgePromotionVar",
       description: "Nudge promotion adjustments",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "promotion_discount_collector_job/PromotionStackableDeliveryFeeDiscount",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "PromotionStackableDeliveryFeeDiscount",
       description: "total of all stackable delivery fee discount",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "promotion_discount_collector_job/PromotionPriorityFeeDiscount",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "PromotionPriorityFeeDiscount",
       description: "Priority fee promotion discount adjustment",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "promotion_discount_collector_job/PromotionNudgeTotalDiscountAmount",
-    parentNode: "promotion_discount_collector_job",
     data: {
       label: "PromotionNudgeTotalDiscountAmount",
       description:
         "Promotion total save discount amount for nearby free delivery + discounted service fee with minimum subtotal",
     },
+    parentNode: "promotion_discount_collector_job",
   },
   {
     id: "discount_collector_job",
@@ -711,96 +686,95 @@ export const nodes: NodeData[] = [
       label: "discount_collector_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/DiscountCollectorJobCreator.kt",
-      description: "collects final discount context and breakdowns",
     },
   },
   {
     id: "discount_collector_job/DiscountBreakdownCreditsBack",
-    parentNode: "discount_collector_job",
     data: {
       label: "DiscountBreakdownCreditsBack",
       description: "final discount context for creditsBack",
     },
+    parentNode: "discount_collector_job",
   },
   {
     id: "discount_collector_job/DiscountBreakdownDeliveryFee",
-    parentNode: "discount_collector_job",
     data: {
       label: "DiscountBreakdownDeliveryFee",
       description: "Original delivery fee",
     },
+    parentNode: "discount_collector_job",
   },
   {
     id: "discount_collector_job/DiscountBreakdownExpandedRangeFee",
-    parentNode: "discount_collector_job",
     data: {
       label: "DiscountBreakdownExpandedRangeFee",
       description: "final discount context for expanded range fee",
     },
+    parentNode: "discount_collector_job",
   },
   {
     id: "discount_collector_job/DiscountBreakdownItemPrice",
-    parentNode: "discount_collector_job",
     data: {
       label: "DiscountBreakdownItemPrice",
       description: "final discount context for Item Price",
     },
+    parentNode: "discount_collector_job",
   },
   {
     id: "discount_collector_job/DiscountBreakdownLunchpassVar",
-    parentNode: "discount_collector_job",
     data: {
       label: "DiscountBreakdownLunchpassVar",
       description: "final discount context for lunch pass",
     },
+    parentNode: "discount_collector_job",
   },
   {
     id: "discount_collector_job/DiscountBreakdownServiceFeeVar",
-    parentNode: "discount_collector_job",
     data: {
       label: "DiscountBreakdownServiceFeeVar",
       description: "final discount context for service fee",
     },
+    parentNode: "discount_collector_job",
   },
   {
     id: "discount_collector_job/DiscountBreakdownSmallOrderFee",
-    parentNode: "discount_collector_job",
     data: {
       label: "DiscountBreakdownSmallOrderFee",
       description: "final discount context for small order fee",
     },
+    parentNode: "discount_collector_job",
   },
   {
     id: "discount_collector_job/DiscountBreakdownSubtotal",
-    parentNode: "discount_collector_job",
     data: {
       label: "DiscountBreakdownSubtotal",
       description: "final discount context for subtotal",
     },
+    parentNode: "discount_collector_job",
   },
   {
     id: "discount_collector_job/DiscountContext",
-    parentNode: "discount_collector_job",
     data: {
       label: "DiscountContext",
       description: "final discount context for all applicable discount",
     },
+    parentNode: "discount_collector_job",
   },
   {
     id: "discount_collector_job/TotalDeliveryFeeDiscount",
-    parentNode: "discount_collector_job",
     data: {
       label: "TotalDeliveryFeeDiscount",
       description: "This is the total amount for delivery fee discounts.",
     },
+    parentNode: "discount_collector_job",
   },
   {
     id: "discount_collector_job/DiscountBreakdownPriorityFee",
-    parentNode: "discount_collector_job",
     data: {
       label: "DiscountBreakdownPriorityFee",
       description: "final discount context for priority fee",
     },
+    parentNode: "discount_collector_job",
   },
   {
     id: "estimated_tax_collector_job",
@@ -808,215 +782,214 @@ export const nodes: NodeData[] = [
       label: "estimated_tax_collector_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/EstimatedTaxCollectorJobCreator.kt",
-      description: "collects tax breakdowns per category",
     },
   },
   {
     id: "estimated_tax_collector_job/DeliveryFeeTax",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "DeliveryFeeTax",
       description: "Tax for final delivery fee",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/EstimateTaxResponse",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "EstimateTaxResponse",
       description:
         "Estimated tax response payload for group order split bill usage",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/FeesTax",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "FeesTax",
       description: "Fees tax from tax response",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/GenericFeesTaxVar",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "GenericFeesTaxVar",
       description: "tax of generic fee",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/LegislativeFeeTaxVar",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "LegislativeFeeTaxVar",
       description: "tax of legislative fee",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/MarketplaceFacilitator",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "MarketplaceFacilitator",
       description: "Tax Mpf adjustment",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/PriorityFeeTaxVar",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "PriorityFeeTaxVar",
       description: "Priority fee tax",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/ServiceFeeTax",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "ServiceFeeTax",
       description: "Service fee tax",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/SmallOrderFeeTax",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "SmallOrderFeeTax",
       description: "Tax for small order fee.",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/StoreTaxRate",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "StoreTaxRate",
       description: "Store level tax rate",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/SubTransactionDeliveryFeeTax",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "SubTransactionDeliveryFeeTax",
       description: "Tax for final delivery fee",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/SubTransactionFeesTax",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "SubTransactionFeesTax",
       description: "Fees tax from tax response",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/SubTransactionIds",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "SubTransactionIds",
       description:
         "The transaction ids for subtransactions. Subtransaction is used when the order includes alcohol.",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/SubTransactionLegislativeFeeTax",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "SubTransactionLegislativeFeeTax",
       description:
         "Legislative fee's tax in sub transaction. Subtransaction is used when the order includes alcohol.",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/SubTransactionPriorityFeeTax",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "SubTransactionPriorityFeeTax",
       description:
         "Priority fee's tax in sub transaction. Subtransaction is used when the order includes alcohol.",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/SubTransactionServiceFeeTax",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "SubTransactionServiceFeeTax",
       description: "Service fee tax",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/SubTransactionSmallOrderFeeTax",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "SubTransactionSmallOrderFeeTax",
       description: "Tax for small order fee.",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/SubTransactionStoreTaxRate",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "SubTransactionStoreTaxRate",
       description: "Store level tax rate",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/SubTransactionSubtotalTax",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "SubTransactionSubtotalTax",
       description: "Tax for cart subtotal",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/SubTransactionTax",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "SubTransactionTax",
       description:
         "The total tax for sub transactions. Subtransaction is used when the order includes alcohol.",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/SubTransactionTaxDetails",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "SubTransactionTaxDetails",
       description:
         "All tax related information for sub transaction. Subtransaction is used when the order includes alcohol.",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/SubtotalTax",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "SubtotalTax",
       description: "Tax for cart subtotal",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/Tax",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "Tax",
       description: "This is the default subtotal tax.",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/TaxDetails",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "TaxDetails",
       description: "Tax breakdown's snapshot",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "estimated_tax_collector_job/TaxMetadataVar",
-    parentNode: "estimated_tax_collector_job",
     data: {
       label: "TaxMetadataVar",
       description:
         "Tax information about item breakdown and payment breakdown.",
     },
+    parentNode: "estimated_tax_collector_job",
   },
   {
     id: "loyalty_points_collector_job",
@@ -1024,16 +997,15 @@ export const nodes: NodeData[] = [
       label: "loyalty_points_collector_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/LoyaltyPointsCollectorJobCreator.kt",
-      description: "collects Loyalty point info",
     },
   },
   {
     id: "loyalty_points_collector_job/DDLoyaltyPoints",
-    parentNode: "loyalty_points_collector_job",
     data: {
       label: "DDLoyaltyPoints",
       description: "Doordash loyalty points",
     },
+    parentNode: "loyalty_points_collector_job",
   },
   {
     id: "merchant_tip_suggestions_collector_job",
@@ -1045,11 +1017,11 @@ export const nodes: NodeData[] = [
   },
   {
     id: "merchant_tip_suggestions_collector_job/MerchantTipSuggestions",
-    parentNode: "merchant_tip_suggestions_collector_job",
     data: {
       label: "MerchantTipSuggestions",
       description: "Merchant tip suggestion in amount",
     },
+    parentNode: "merchant_tip_suggestions_collector_job",
   },
   {
     id: "total_before_credits_applied_collector_job",
@@ -1057,86 +1029,84 @@ export const nodes: NodeData[] = [
       label: "total_before_credits_applied_collector_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/TotalBeforeCreditsAppliedCollectorJobCreator.kt",
-      description:
-        "collects final fee amounts and eligible total with criterias",
     },
   },
   {
     id: "total_before_credits_applied_collector_job/EligibleTotalBeforeCreditsApplied",
-    parentNode: "total_before_credits_applied_collector_job",
     data: {
       label: "EligibleTotalBeforeCreditsApplied",
       description: "Eligible total amount before credits applied",
     },
+    parentNode: "total_before_credits_applied_collector_job",
   },
   {
     id: "total_before_credits_applied_collector_job/EligibleTotalBeforeTipApplied",
-    parentNode: "total_before_credits_applied_collector_job",
     data: {
       label: "EligibleTotalBeforeTipApplied",
       description: "Eligible total amount before tip applied",
     },
+    parentNode: "total_before_credits_applied_collector_job",
   },
   {
     id: "total_before_credits_applied_collector_job/FinalDeliveryFee",
-    parentNode: "total_before_credits_applied_collector_job",
     data: {
       label: "FinalDeliveryFee",
       description: "Original delivery fee",
     },
+    parentNode: "total_before_credits_applied_collector_job",
   },
   {
     id: "total_before_credits_applied_collector_job/FinalMinOrderFee",
-    parentNode: "total_before_credits_applied_collector_job",
     data: {
       label: "FinalMinOrderFee",
       description:
         "FinalMinOrderFee is what is charged to the consumer. Minimum Order Fee (Small Order Fee) is charged when the subtotal of an order is below a certain threshold.",
     },
+    parentNode: "total_before_credits_applied_collector_job",
   },
   {
     id: "total_before_credits_applied_collector_job/FinalPriorityFee",
-    parentNode: "total_before_credits_applied_collector_job",
     data: {
       label: "FinalPriorityFee",
       description:
         "FinalPriorityFee is what is charged to the consumer for express delivery.",
     },
+    parentNode: "total_before_credits_applied_collector_job",
   },
   {
     id: "total_before_credits_applied_collector_job/FinalServiceFee",
-    parentNode: "total_before_credits_applied_collector_job",
     data: {
       label: "FinalServiceFee",
       description:
         "FinalServiceFee is what is charged to the consumer. This fee includes any service fee related discounts.",
     },
+    parentNode: "total_before_credits_applied_collector_job",
   },
   {
     id: "total_before_credits_applied_collector_job/TotalBeforeCreditsApplied",
-    parentNode: "total_before_credits_applied_collector_job",
     data: {
       label: "TotalBeforeCreditsApplied",
       description:
         "This is the total charge for an order, before pricing services can apply any eligible credit balance on the consumers order.",
     },
+    parentNode: "total_before_credits_applied_collector_job",
   },
   {
     id: "total_before_credits_applied_collector_job/TotalBeforeDiscountApplied",
-    parentNode: "total_before_credits_applied_collector_job",
     data: {
       label: "TotalBeforeDiscountApplied",
       description:
         "This is the original total charge for an order before any discounts applied.",
     },
+    parentNode: "total_before_credits_applied_collector_job",
   },
   {
     id: "total_before_credits_applied_collector_job/TotalNotAppliedCredit",
-    parentNode: "total_before_credits_applied_collector_job",
     data: {
       label: "TotalNotAppliedCredit",
       description: "This is the subtotal we cannot use credits to apply",
     },
+    parentNode: "total_before_credits_applied_collector_job",
   },
   {
     id: "credit_collector_job",
@@ -1144,33 +1114,32 @@ export const nodes: NodeData[] = [
       label: "credit_collector_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/CreditCollectorJobCreator.kt",
-      description: "collects applicable and applied credits",
     },
   },
   {
     id: "credit_collector_job/CreditsApplicableBeforeTip",
-    parentNode: "credit_collector_job",
     data: {
       label: "CreditsApplicableBeforeTip",
       description: "How much credit is applied in order cart quote in total",
     },
+    parentNode: "credit_collector_job",
   },
   {
     id: "credit_collector_job/ReferralCreditsApplied",
-    parentNode: "credit_collector_job",
     data: {
       label: "ReferralCreditsApplied",
       description: "Credits for Referral",
     },
+    parentNode: "credit_collector_job",
   },
   {
     id: "credit_collector_job/TotalCreditsApplied",
-    parentNode: "credit_collector_job",
     data: {
       label: "TotalCreditsApplied",
       description:
         "This is the total credits available to apply for consumers.",
     },
+    parentNode: "credit_collector_job",
   },
   {
     id: "reward_points_collector_job",
@@ -1178,16 +1147,15 @@ export const nodes: NodeData[] = [
       label: "reward_points_collector_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/RewardPointsCollectorJobCreator.kt",
-      description: "calculates available reward points applied amount",
     },
   },
   {
     id: "reward_points_collector_job/AvailableRewardPoints",
-    parentNode: "reward_points_collector_job",
     data: {
       label: "AvailableRewardPoints",
       description: "Final reward points that cx applies",
     },
+    parentNode: "reward_points_collector_job",
   },
   {
     id: "total_collector_job",
@@ -1195,34 +1163,32 @@ export const nodes: NodeData[] = [
       label: "total_collector_job",
       codeLink:
         "https://github.com/doordash/consumer-pricing/blob/master/src/main/kotlin/com/doordash/consumerpricing/pricingworkflow/component/common/TotalCollectorJobCreator.kt",
-      description:
-        "collects and calculates total related results with different criterias",
     },
   },
   {
     id: "total_collector_job/EligibleTotal",
-    parentNode: "total_collector_job",
     data: {
       label: "EligibleTotal",
       description:
         "Eligible total amount after credits, tips, rewards, refunds, etc.",
     },
+    parentNode: "total_collector_job",
   },
   {
     id: "total_collector_job/Total",
-    parentNode: "total_collector_job",
     data: {
       label: "Total",
       description: "This is the total charge for an order.",
     },
+    parentNode: "total_collector_job",
   },
   {
     id: "total_collector_job/TotalBeforeTip",
-    parentNode: "total_collector_job",
     data: {
       label: "TotalBeforeTip",
       description: "This is total charge without tips for customers.",
     },
+    parentNode: "total_collector_job",
   },
   {
     id: "dasher_tip_suggestions_collector_job",
@@ -1234,11 +1200,11 @@ export const nodes: NodeData[] = [
   },
   {
     id: "dasher_tip_suggestions_collector_job/DasherTipSuggestions",
-    parentNode: "dasher_tip_suggestions_collector_job",
     data: {
       label: "DasherTipSuggestions",
       description: "Suggestions tip amount for dasher",
     },
+    parentNode: "dasher_tip_suggestions_collector_job",
   },
 ];
 
@@ -1277,8 +1243,8 @@ export const dependencyMap: DependencyMap = {
       "total_before_credits_applied_collector_job",
     ],
     vars: [
-      "delivery_option_job/DeliveryTrainsDiscountConfigVar",
       "delivery_option_job/PriorityFee",
+      "delivery_option_job/DeliveryTrainsDiscountConfigVar",
     ],
   },
   delivery_option_quote_job: {
@@ -1406,8 +1372,8 @@ export const dependencyMap: DependencyMap = {
     ],
     vars: [
       "min_order_fee_collector_job/MinOrderFee",
-      "min_order_fee_collector_job/MinOrderAdditionalSubtotal",
       "min_order_fee_collector_job/MinOrderSubtotal",
+      "min_order_fee_collector_job/MinOrderAdditionalSubtotal",
     ],
   },
   service_fee_collector_job: {
@@ -1468,9 +1434,9 @@ export const dependencyMap: DependencyMap = {
     ],
     dependents: ["total_before_credits_applied_collector_job"],
     vars: [
-      "eligible_subscription_collector_job/EligibleSubscriptionDiscountedDeliveryFee",
-      "eligible_subscription_collector_job/EligibleSubscriptionDiscountedServiceFee",
       "eligible_subscription_collector_job/EligibleSubscriptionDiscountedServiceRate",
+      "eligible_subscription_collector_job/EligibleSubscriptionDiscountedServiceFee",
+      "eligible_subscription_collector_job/EligibleSubscriptionDiscountedDeliveryFee",
     ],
   },
   subscription_collector_job: {
@@ -1495,14 +1461,14 @@ export const dependencyMap: DependencyMap = {
       "total_before_credits_applied_collector_job",
     ],
     vars: [
-      "subscription_collector_job/DummyAdjustment",
       "subscription_collector_job/SubscriptionAdditionalSubtotal",
       "subscription_collector_job/SubscriptionBenefitsApplied",
-      "subscription_collector_job/SubscriptionDiscountFlatRate",
       "subscription_collector_job/SubscriptionDiscountedDeliveryFee",
       "subscription_collector_job/SubscriptionDiscountedServiceFee",
       "subscription_collector_job/SubscriptionDiscountedServiceRate",
+      "subscription_collector_job/SubscriptionDiscountFlatRate",
       "subscription_collector_job/TrulyFreeDeliveryExperimentServiceFee",
+      "subscription_collector_job/DummyAdjustment",
     ],
   },
   promotion_collector_job: {
@@ -1558,7 +1524,10 @@ export const dependencyMap: DependencyMap = {
       "promotion_discount_collector_job/ExpandedRangeFee",
       "promotion_discount_collector_job/ItemLevelPromotion",
       "promotion_discount_collector_job/LunchpassPromotion",
-      "promotion_discount_collector_job/NudgePromotionVar",
+      "promotion_discount_collector_job/PostMerchantDiscountedSubtotalVar",
+      "promotion_discount_collector_job/PromotionAdditionalDiscountPercentMaxValue",
+      "promotion_discount_collector_job/PromotionAdditionalFlatValueSaving",
+      "promotion_discount_collector_job/PromotionAdditionalPercentageSaving",
       "promotion_discount_collector_job/PromotionAdditionalSubtotal",
       "promotion_discount_collector_job/PromotionCreditsback",
       "promotion_discount_collector_job/PromotionDeliveryFeeDiscount",
@@ -1567,13 +1536,10 @@ export const dependencyMap: DependencyMap = {
       "promotion_discount_collector_job/PromotionSmallOrderFeeDiscount",
       "promotion_discount_collector_job/PromotionValueDiscount",
       "promotion_discount_collector_job/StackableItemLevelPromotion",
+      "promotion_discount_collector_job/NudgePromotionVar",
       "promotion_discount_collector_job/PromotionStackableDeliveryFeeDiscount",
       "promotion_discount_collector_job/PromotionPriorityFeeDiscount",
       "promotion_discount_collector_job/PromotionNudgeTotalDiscountAmount",
-      "promotion_discount_collector_job/PostMerchantDiscountedSubtotalVar",
-      "promotion_discount_collector_job/PromotionAdditionalPercentageSaving",
-      "promotion_discount_collector_job/PromotionAdditionalFlatValueSaving",
-      "promotion_discount_collector_job/PromotionAdditionalDiscountPercentMaxValue",
     ],
   },
   discount_collector_job: {
@@ -1633,17 +1599,17 @@ export const dependencyMap: DependencyMap = {
       "total_before_credits_applied_collector_job",
     ],
     vars: [
-      "discount_collector_job/DiscountBreakdownLunchpassVar",
+      "discount_collector_job/DiscountBreakdownCreditsBack",
       "discount_collector_job/DiscountBreakdownDeliveryFee",
       "discount_collector_job/DiscountBreakdownExpandedRangeFee",
+      "discount_collector_job/DiscountBreakdownItemPrice",
+      "discount_collector_job/DiscountBreakdownLunchpassVar",
       "discount_collector_job/DiscountBreakdownServiceFeeVar",
       "discount_collector_job/DiscountBreakdownSmallOrderFee",
       "discount_collector_job/DiscountBreakdownSubtotal",
+      "discount_collector_job/DiscountContext",
       "discount_collector_job/TotalDeliveryFeeDiscount",
       "discount_collector_job/DiscountBreakdownPriorityFee",
-      "discount_collector_job/DiscountContext",
-      "discount_collector_job/DiscountBreakdownItemPrice",
-      "discount_collector_job/DiscountBreakdownCreditsBack",
     ],
   },
   estimated_tax_collector_job: {
@@ -1687,6 +1653,7 @@ export const dependencyMap: DependencyMap = {
       "dasher_tip_suggestions_collector_job",
     ],
     vars: [
+      "estimated_tax_collector_job/DeliveryFeeTax",
       "estimated_tax_collector_job/EstimateTaxResponse",
       "estimated_tax_collector_job/FeesTax",
       "estimated_tax_collector_job/GenericFeesTaxVar",
@@ -1695,6 +1662,7 @@ export const dependencyMap: DependencyMap = {
       "estimated_tax_collector_job/PriorityFeeTaxVar",
       "estimated_tax_collector_job/ServiceFeeTax",
       "estimated_tax_collector_job/SmallOrderFeeTax",
+      "estimated_tax_collector_job/StoreTaxRate",
       "estimated_tax_collector_job/SubTransactionDeliveryFeeTax",
       "estimated_tax_collector_job/SubTransactionFeesTax",
       "estimated_tax_collector_job/SubTransactionIds",
@@ -1704,14 +1672,12 @@ export const dependencyMap: DependencyMap = {
       "estimated_tax_collector_job/SubTransactionSmallOrderFeeTax",
       "estimated_tax_collector_job/SubTransactionStoreTaxRate",
       "estimated_tax_collector_job/SubTransactionSubtotalTax",
-      "estimated_tax_collector_job/DeliveryFeeTax",
       "estimated_tax_collector_job/SubTransactionTax",
       "estimated_tax_collector_job/SubTransactionTaxDetails",
-      "estimated_tax_collector_job/Tax",
-      "estimated_tax_collector_job/StoreTaxRate",
       "estimated_tax_collector_job/SubtotalTax",
-      "estimated_tax_collector_job/TaxMetadataVar",
+      "estimated_tax_collector_job/Tax",
       "estimated_tax_collector_job/TaxDetails",
+      "estimated_tax_collector_job/TaxMetadataVar",
     ],
   },
   loyalty_points_collector_job: {
@@ -1789,14 +1755,14 @@ export const dependencyMap: DependencyMap = {
       "total_collector_job",
     ],
     vars: [
+      "total_before_credits_applied_collector_job/EligibleTotalBeforeCreditsApplied",
       "total_before_credits_applied_collector_job/EligibleTotalBeforeTipApplied",
       "total_before_credits_applied_collector_job/FinalDeliveryFee",
       "total_before_credits_applied_collector_job/FinalMinOrderFee",
       "total_before_credits_applied_collector_job/FinalPriorityFee",
       "total_before_credits_applied_collector_job/FinalServiceFee",
-      "total_before_credits_applied_collector_job/TotalBeforeDiscountApplied",
       "total_before_credits_applied_collector_job/TotalBeforeCreditsApplied",
-      "total_before_credits_applied_collector_job/EligibleTotalBeforeCreditsApplied",
+      "total_before_credits_applied_collector_job/TotalBeforeDiscountApplied",
       "total_before_credits_applied_collector_job/TotalNotAppliedCredit",
     ],
   },
@@ -1814,8 +1780,8 @@ export const dependencyMap: DependencyMap = {
     dependents: ["reward_points_collector_job", "total_collector_job"],
     vars: [
       "credit_collector_job/CreditsApplicableBeforeTip",
-      "credit_collector_job/TotalCreditsApplied",
       "credit_collector_job/ReferralCreditsApplied",
+      "credit_collector_job/TotalCreditsApplied",
     ],
   },
   reward_points_collector_job: {
@@ -1846,9 +1812,9 @@ export const dependencyMap: DependencyMap = {
     ],
     dependents: ["dasher_tip_suggestions_collector_job"],
     vars: [
+      "total_collector_job/EligibleTotal",
       "total_collector_job/Total",
       "total_collector_job/TotalBeforeTip",
-      "total_collector_job/EligibleTotal",
     ],
   },
   dasher_tip_suggestions_collector_job: {
