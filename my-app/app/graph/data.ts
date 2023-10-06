@@ -1937,3 +1937,211 @@ export const getReactFlowLayoutEdges = (
       ];
     }, [] as Edge[]);
 };
+
+export const DESCRIPTION: Record<string, string> = {
+  subtotal_job: "generate subtotal for each cart",
+  delivery_fee_job: "generate delivery fee for each cart",
+  service_fee_job: "generate service rate for each mx",
+  min_order_fee_job: "generate configuration for min order fee",
+  credit_job: "generate consumer'savailable credits",
+  generic_fee_job: "generate fees required by government or by law",
+  delivery_option_quote_job:
+    "generate quotes based on different delivery option (option not selected)",
+  delivery_option_job:
+    "collect quotes based on different delivery option and added into preview orderQuote (option selected)",
+  recurring_delivery_discount_job:
+    "generate discount percentage if it is recurring delivery",
+  eligible_subscription_job:
+    "generate potential subscription discount and upsell the dashpass plan to consumers",
+  subscription_job:
+    "generate subscription discount based on current subscription plan",
+  min_order_fee_collector_job:
+    "collect min order fee based on subtotal and configuration",
+  service_fee_collector_job:
+    "collect service fee bsed on subtotal and service rate",
+  subscription_collector_job: "collect subscription payment method",
+  eligible_subscription_collector_job:
+    "generates eligible subscription discounted fees and rates",
+  promotion_collector_job:
+    "collects promotions, validates and generates discount info",
+  promotion_discount_collector_job:
+    "generates promotion subtotal, discounts by fees, and itemized promotion results",
+  train_discount_collector_job:
+    "generates delivery train discount amount based on subtotal",
+  bundle_fee_discount_collector_job:
+    "collects post checkout bundle order specific fee discount amount",
+  discount_collector_job: "collects final discount context and breakdowns",
+  estimated_tax_collector_job: "collects tax breakdowns per category",
+  total_before_credits_applied_collector_job:
+    "collects final fee amounts and eligible total with criterias",
+  credit_collector_job: "collects applicable and applied credits",
+  reward_points_collector_job:
+    "calculates available reward points applied amount",
+  total_collector_job:
+    "collects and calculates total related results with different criterias",
+  loyalty_points_collector_job: "collects Loyalty point info",
+  AppliedPromotion:
+    "Discounts retrieved from Promotion service after filtering and mapping",
+  AvailableCredit: "Configuration of available credit for each cx",
+  AvailableRewardPoints: "Final reward points that cx applies",
+  BundleDiscountDeliveryFeeDiscountAmountVar:
+    "Delivery fee discount amount for bundle cart",
+  BundleDiscountSmallOrderFeeDiscountAmountVar:
+    "Small order fee discount amount for bundle cart",
+  CreditsApplicableBeforeTip:
+    "How much credit is applied in order cart quote in total",
+  DasherTipSuggestions: "Suggestions tip amount for dasher",
+  DDLoyaltyPoints: "Doordash loyalty points",
+  DeliveryFee: "Original delivery fee",
+  DeliveryFeeTax: "Tax for final delivery fee",
+  DeliveryOptionQuoteVar: "configuration of each delivery option",
+  DeliveryTrainsDiscountAmountVar:
+    "final discount amount and info for no rush delivery",
+  DeliveryTrainsDiscountConfigVar: "configuration for no rush delivery",
+  DiscountBreakdownCreditsBack: "final discount context for creditsBack",
+  DiscountBreakdownDeliveryFee: "final discount context for delivery fee",
+  DiscountBreakdownExpandedRangeFee:
+    "final discount context for expanded range fee",
+  DiscountBreakdownItemPrice: "final discount context for Item Price",
+  DiscountBreakdownLunchpassVar: "final discount context for lunch pass",
+  DiscountBreakdownPriorityFee: "final discount context for priority fee",
+  DiscountBreakdownServiceFeeVar: "final discount context for service fee",
+  DiscountBreakdownSmallOrderFee: "final discount context for small order fee",
+  DiscountBreakdownSubtotal: "final discount context for subtotal",
+  DiscountContext: "final discount context for all applicable discount",
+  DummyAdjustment: "Dummy Adjust for payment method",
+  EligibleSubscriptionDiscount:
+    "Discount configuration on subscription with cx, mx, plan criterions",
+  EligibleSubscriptionDiscountedDeliveryFee:
+    "Delivery fee discount amount introduced by eligible subscription",
+  EligibleSubscriptionDiscountedServiceFee:
+    "Service fee discount amount introduced by eligible subscription",
+  EligibleSubscriptionDiscountedServiceRate:
+    "Service rate discount amount introduced by eligible subscription",
+  EligibleTotal:
+    "Eligible total amount after credits, tips, rewards, refunds, etc.",
+  EligibleTotalBeforeCreditsApplied:
+    "Eligible total amount before credits applied",
+  EligibleTotalBeforeTipApplied: "Eligible total amount before tip applied",
+  EstimateTaxResponse:
+    "Estimated tax response payload for group order split bill usage",
+  ExpandedRangeFee: "Expanded range fee discount breakdowns for meal plans.",
+  ExtraSosDeliveryFee: "?",
+  FeesTax: "Fees tax from tax response",
+  FinalDeliveryFee:
+    "FinalDelivery fee is what is charged to the consumer. This fee is inclusive of any extra delivery costs associated along with any applicable delivery discounts.",
+  FinalMinOrderFee:
+    "FinalMinOrderFee is what is charged to the consumer. Minimum Order Fee (Small Order Fee) is charged when the subtotal of an order is below a certain threshold.",
+  FinalPriorityFee:
+    "FinalPriorityFee is what is charged to the consumer for express delivery.",
+  FinalServiceFee:
+    "FinalServiceFee is what is charged to the consumer. This fee includes any service fee related discounts.",
+  GenericFees: "fees required by government or by law",
+  GenericFeesTaxVar: "tax of generic fee",
+  ItemLevelPromotion: "best itemLevel promotion discount",
+  LegislativeFeeTaxVar: "tax of legislative fee",
+  LegislativeFeeVar: "fees required by government or by law",
+  LunchpassPromotion: "best lunch pass promotion discount",
+  MarketplaceFacilitator: "Tax Mpf adjustment",
+  MerchantTipSuggestions: "Merchant tip suggestion in amount",
+  MinOrderAdditionalSubtotal: "Add this amount to avoid min order fee.",
+  MinOrderFee:
+    "Small order fee. This is a charge to consumer when the subtotal is below a threshold",
+  MinOrderFeeSetting:
+    "Sub market level min order fee. And this value is adjusted by service fee min.",
+  MinOrderSubtotal: "The subtotal threshold for min order fee",
+  MinOrderSubtotalSetting: "The subtotal threshold for min order fee",
+  NoRushDeliveryOptionDiscountQuoteVar:
+    "Discount amount value for no rush delivery option",
+  NudgePromotionVar: "Nudge promotion adjustments",
+  PostMerchantDiscountedSubtotalVar:
+    "Post merchant promotion subtotal and fee information for tax calculation",
+  PriorityFee: "Priority fee amount",
+  PriorityFeeTaxVar: "Priority fee tax",
+  PromotionAdditionalDiscountPercentMaxValue: "Promotion max discount amount",
+  PromotionAdditionalFlatValueSaving: "Promotion flat amount discount",
+  PromotionAdditionalPercentageSaving: "Promotion percentage discount value",
+  PromotionAdditionalSubtotal:
+    "Additional subtotal needed to be qualified for promotion",
+  PromotionCreditsback: "Best credits back promotion discount",
+  PromotionDeliveryFeeDiscount: "Best delivery fee promotion discount",
+  PromotionMinSubtotal: "Promotion minimum subtotal requirements",
+  PromotionNudgeTotalDiscountAmount:
+    "Promotion total save discount amount for nearby free delivery + discounted service fee with minimum subtotal",
+  PromotionPriorityFeeDiscount: "Priority fee promotion discount adjustment",
+  PromotionServiceFeeDiscount: "best service fee promotion discount",
+  PromotionSmallOrderFeeDiscount: "best small order fee promotion discount",
+  PromotionStackableDeliveryFeeDiscount:
+    "total of all stackable delivery fee discount",
+  PromotionValueDiscount: "best subtotal level promotion discount",
+  RecurringDeliveryDiscountVar: "Recurring delivery discounts for subtotal",
+  ReferralCreditsApplied: "Credits for Referral",
+  ScheduleDeliveryOptionDiscountQuoteVar: "Scheduled delivery discounts",
+  ServiceFee:
+    "Service fee. This var includes the adjustment by service fee min",
+  ServiceFeeTax: "Service fee tax",
+  ServiceRate: "Service rate percentage",
+  SmallOrderFeeTax: "Tax for small order fee.",
+  StackableItemLevelPromotion:
+    "Promotion discount for stackable item level discounts",
+  StoreTaxRate: "Store level tax rate",
+  SubscriptionAdditionalSubtotal:
+    "This is used for upsells. Add $X to get Dashpass discounts.",
+  SubscriptionBenefitsApplied:
+    "It indicates whether DashPass discounts is applied.",
+  SubscriptionDetail:
+    "This includes the details about s subscription plan, such as subscription id.",
+  SubscriptionDiscount:
+    "This includes subscription's discount details, such as dp users' delivery fee and service fee",
+  SubscriptionDiscountedDeliveryFee:
+    "This is the delivery fee for dashpass users.",
+  SubscriptionDiscountedServiceFee:
+    "This is the service fee for dashpass users.",
+  SubscriptionDiscountedServiceRate:
+    "This is the service rate for dashpass users.",
+  SubscriptionDiscountFlatRate: "This is the flat rate for lunch pass users.",
+  Subtotal: "This the original cart subtotal.",
+  SubtotalTax: "Tax for cart subtotal",
+  SubTransactionDeliveryFeeTax:
+    "Delivery fee's tax in sub transaction. Subtransaction is used when the order includes alcohol.",
+  SubTransactionFeesTax:
+    "Fees' tax in subtransaction. Subtransaction is used when the order includes alcohol.",
+  SubTransactionIds:
+    "The transaction ids for subtransactions. Subtransaction is used when the order includes alcohol.",
+  SubTransactionLegislativeFeeTax:
+    "Legislative fee's tax in sub transaction. Subtransaction is used when the order includes alcohol.",
+  SubTransactionPriorityFeeTax:
+    "Priority fee's tax in sub transaction. Subtransaction is used when the order includes alcohol.",
+  SubTransactionServiceFeeTax:
+    "Service fee's tax in sub transaction.Subtransaction is used when the order includes alcohol.",
+  SubTransactionSmallOrderFeeTax:
+    "Small order fee's tax in sub transaction. Subtransaction is used when the order includes alcohol.",
+  SubTransactionStoreTaxRate:
+    "Store's tax rate in sub transaction. Subtransaction is used when the order includes alcohol.",
+  SubTransactionSubtotalTax:
+    "Subtotal's tax in sub transaction. Subtransaction is used when the order includes alcohol.",
+  SubTransactionTax:
+    "The total tax for sub transactions. Subtransaction is used when the order includes alcohol.",
+  SubTransactionTaxDetails:
+    "All tax related information for sub transaction. Subtransaction is used when the order includes alcohol.",
+  Tax: "This is the default subtotal tax.",
+  TaxDetails: "Tax breakdown's snapshot",
+  TaxMetadataVar: "Tax information about item breakdown and payment breakdown.",
+  Total: "This is the total charge for an order.",
+  TotalBeforeCreditsApplied:
+    "This is the total charge for an order, before pricing services can apply any eligible credit balance on the consumers order.",
+  TotalBeforeDiscountApplied:
+    "This is the original total charge for an order before any discounts applied.",
+  TotalBeforeTip: "This is total charge without tips for customers.",
+  TotalCreditsApplied:
+    "This is the total credits available to apply for consumers.",
+  TotalDeliveryFeeDiscount:
+    "This is the total amount for delivery fee discounts.",
+  TotalNotAppliedCredit: "This is the subtotal we cannot use credits to apply",
+  TrulyFreeDeliveryExperimentEligibleServiceFeeRate:
+    "This is the service rate used tor DP upsells. It tells consumer what the service rate when the consumer is eligbie for truly free delivery",
+  TrulyFreeDeliveryExperimentServiceFee:
+    "This is the service fee when consumer is eligible for truly free delivery.",
+  TrulyFreeDeliveryExperimentServiceFeeRate:
+    "This is the service rate when the consumer is eligible for truly free delivery.",
+};

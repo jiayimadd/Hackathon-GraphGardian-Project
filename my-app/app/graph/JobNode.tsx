@@ -7,7 +7,7 @@ import {
   ITEM_WIDTH,
   getContainerHeight,
 } from "./layout";
-import { dependencyMap } from "./data";
+import { DESCRIPTION, dependencyMap } from "./data";
 
 export interface JobNodeData {
   label: string;
@@ -39,7 +39,7 @@ const JobNode: React.FC<NodeProps<JobNodeData>> = ({
     <div
       id={id}
       data-tooltip-id={id}
-      data-tooltip-content={description}
+      data-tooltip-content={DESCRIPTION[id] || "No description"}
       data-tooltip-place="top"
       className="flex flex-col p-4"
       style={{
@@ -74,7 +74,7 @@ const JobNode: React.FC<NodeProps<JobNodeData>> = ({
       </div>
       <Handle type="target" position={Position.Left} />
       <Handle type="source" position={Position.Right} />
-      {description && <Tooltip id={id} />}
+      <Tooltip id={id} />
     </div>
   );
 };

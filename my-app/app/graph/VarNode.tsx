@@ -7,12 +7,11 @@ import {
   ITEM_WIDTH,
   getContainerHeight,
 } from "./layout";
-import { dependencyMap } from "./data";
+import { DESCRIPTION, dependencyMap } from "./data";
 
 export interface VarNodeData {
   label: string;
   highlighted?: boolean;
-  description?: string;
   codeLink?: string;
 }
 
@@ -24,7 +23,7 @@ const VarNode: React.FC<NodeProps<VarNodeData>> = ({
   selected,
   ...rest
 }) => {
-  const { label, highlighted, description } = data;
+  const { label, highlighted } = data;
 
   const highlight = Boolean(selected || highlighted);
 
@@ -34,7 +33,7 @@ const VarNode: React.FC<NodeProps<VarNodeData>> = ({
     <div
       id={id}
       data-tooltip-id={id}
-      data-tooltip-content={description || "No description."}
+      data-tooltip-content={DESCRIPTION[id] || "No description"}
       data-tooltip-place="top"
       className="flex flex-row justify-center items-center px-4"
       style={{
