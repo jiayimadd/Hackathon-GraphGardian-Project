@@ -58,7 +58,7 @@ const JobNode: React.FC<NodeProps<JobNodeData>> = ({
       <div
         style={{
           fontSize: "0.8rem",
-          fontWeight: selected ? "500" : "400",
+          fontWeight: selected ? "700" : "400",
           padding: selected ? 0 : 1,
           width: "100%",
           height: ITEM_HEIGHT,

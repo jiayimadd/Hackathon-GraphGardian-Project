@@ -2145,3 +2145,22 @@ export const DESCRIPTION: Record<string, string> = {
   TrulyFreeDeliveryExperimentServiceFeeRate:
     "This is the service rate when the consumer is eligible for truly free delivery.",
 };
+
+function getAllNodeIdSelectOptions() {
+  return nodes.map((node) => ({
+    value: node.id,
+    label: node.data.label,
+  }));
+}
+
+function getJobNodeIdSelectOptions() {
+  return nodes
+    .filter((node) => !node.parentNode)
+    .map((node) => ({
+      value: node.id,
+      label: node.data.label,
+    }));
+}
+
+export const nodeSelectOptions = getAllNodeIdSelectOptions();
+export const jobNodeSelectOptions = getJobNodeIdSelectOptions();

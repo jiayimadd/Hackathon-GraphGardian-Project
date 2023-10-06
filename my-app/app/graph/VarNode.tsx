@@ -53,7 +53,7 @@ const VarNode: React.FC<NodeProps<VarNodeData>> = ({
         style={{
           padding: selected ? 0 : 1,
           fontSize: "0.7rem",
-          fontWeight: selected ? "500" : "400",
+          fontWeight: selected ? "700" : "400",
           width: "100%",
           overflowWrap: "anywhere",
           color: selected ? "#191919" : highlighted ? "#313131" : "#606060",

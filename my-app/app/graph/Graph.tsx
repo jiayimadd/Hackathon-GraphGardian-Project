@@ -10,13 +10,19 @@ import ReactFlow, {
   EdgeMarker,
   MarkerType,
   Node,
+  NodeChange,
   NodeMouseHandler,
+  NodeSelectionChange,
   OnConnect,
   OnEdgesChange,
   OnNodesChange,
   OnSelectionChangeFunc,
   Panel,
   Position,
+  ReactFlowState,
+  useEdgesState,
+  useNodesState,
+  useStore,
 } from "reactflow";
 import "reactflow/dist/style.css";
 import dagre from "dagre";
@@ -27,10 +33,12 @@ import {
   getReactFlowEdges,
   getReactFlowLayoutEdges,
   getReactFlowLayoutNodes,
+  nodeSelectOptions,
+  jobNodeSelectOptions,
 } from "./data";
 import JobNode from "./JobNode";
 import VarNode from "./VarNode";
-import { CONTAINER_WIDTH, getContainerHeight } from "./layout";
+import Select from "react-select";
 
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
@@ -112,18 +120,10 @@ const Graph: React.FC = () => {
     return merged;
   }, [initialNodes, layoutedNodes]);
 
-  const [nodes, setNodes] = React.useState(mergedNodes);
-  const [edges, setEdges] = React.useState(initialEdges);
+  const [nodes, setNodes, onNodesChange] = useNodesState(mergedNodes);
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
   const [selectedNode, setSelectedNode] = React.useState<undefined | Node>();
 
-  const onNodesChange: OnNodesChange = React.useCallback(
-    (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
-    [setNodes]
-  );
-  const onEdgesChange: OnEdgesChange = React.useCallback(
-    (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
-    [setEdges]
-  );
   const onConnect: OnConnect = React.useCallback(
     (connection) => setEdges((eds) => addEdge(connection, eds)),
     [setEdges]
@@ -131,6 +131,7 @@ const Graph: React.FC = () => {
 
   const onSelectionChange: OnSelectionChangeFunc = React.useCallback(
     ({ nodes, edges }) => {
+      console.log("wow");
       if (nodes.length > 0) {
         setSelectedNode(nodes[0]);
       } else {
@@ -139,6 +140,23 @@ const Graph: React.FC = () => {
     },
     []
   );
+
+  const { unselectAll } = useStore((state: ReactFlowState) => {
+    return {
+      unselectAll: state.unselectNodesAndEdges,
+    };
+  });
+
+  React.useEffect(() => {
+    unselectAll();
+    setSelectedNode(undefined);
+  }, [showVars, unselectAll]);
+
+  React.useEffect(() => {
+    if (selectedNode === undefined) {
+      console.log(document.getElementById("node-select-input"));
+    }
+  }, [selectedNode]);
 
   const nodesWithHighlight = React.useMemo(() => {
     if (selectedNode === undefined) return nodes;
@@ -256,7 +274,7 @@ const Graph: React.FC = () => {
     >
       <Controls />
       <Panel position="top-center" style={{ zIndex: 99, margin: 0 }}>
-        <div className="w-screen h-[60px] bg-white rounded flex flex-row items-center justify-center">
+        <div className="w-screen h-[60px] bg-white rounded flex flex-row items-center justify-center space-x-8">
           <button
             className="bg-[#e7e7e7] rounded-full h-[40px] px-[12px] font-[13px] font-[600]"
             onClick={() => {
@@ -265,6 +283,60 @@ const Graph: React.FC = () => {
           >
             {showVars ? "Hide" : "Show"} Vars
           </button>
+          <div className="flex flex-row space-x-4 items-center">
+            <div>Search:</div>
+            <div className="w-[200px]">
+              <Select
+                options={showVars ? nodeSelectOptions : jobNodeSelectOptions}
+                isSearchable
+                isClearable
+                inputId="node-select-input"
+                value={
+                  selectedNode
+                    ? {
+                        value: selectedNode.id,
+                        label: selectedNode.data.label,
+                      }
+                    : undefined
+                }
+                onChange={(selection) => {
+                  if (selection === null) {
+                    if (!selectedNode) return;
+                    onNodesChange([
+                      {
+                        id: selectedNode.id,
+                        type: "select",
+                        selected: false,
+                      },
+                    ]);
+                  } else {
+                    if (selectedNode) {
+                      onNodesChange([
+                        {
+                          id: selectedNode!.id,
+                          type: "select",
+                          selected: false,
+                        },
+                        {
+                          id: selection.value,
+                          type: "select",
+                          selected: true,
+                        },
+                      ]);
+                    } else {
+                      onNodesChange([
+                        {
+                          id: selection.value,
+                          type: "select",
+                          selected: true,
+                        },
+                      ]);
+                    }
+                  }
+                }}
+              />
+            </div>
+          </div>
         </div>
       </Panel>
     </ReactFlow>
