@@ -1,4 +1,11 @@
-import { Edge, Node } from "reactflow";
+import { Edge, MarkerType, Node, Position } from "reactflow";
+import {
+  CONTAINER_WIDTH,
+  ITEM_HEIGHT,
+  ITEM_WIDTH,
+  getContainerHeight,
+  getItemPosition,
+} from "./layout";
 
 export interface NodeData {
   /**
@@ -26,6 +33,8 @@ export type DependencyMap = Record<
     dependencyJobs: string[];
     // The complete list of ids of all jobs that are depending on the current node
     dependents: string[];
+    // The complete list of ids of all vars in the job
+    vars: string[];
   }
 >;
 
@@ -97,52 +106,77 @@ export const dependencyMap: DependencyMap = {
   subtotal_job: {
     dependencyJobs: [],
     dependencyVars: [],
-    dependents: ["total_before_credits_applied_collector_job"],
+    dependents: [
+      "total_before_credits_applied_collector_job",
+      "service_fee_collector_job",
+    ],
+    vars: ["subtotal_job/Subtotal"],
   },
   delivery_fee_job: {
     dependencyJobs: [],
     dependencyVars: [],
     dependents: ["total_before_credits_applied_collector_job"],
+    vars: [
+      "delivery_fee_job/DeliveryFee",
+      "delivery_fee_job/ExtraSosDeliveryFee",
+    ],
   },
   service_fee_job: {
     dependencyJobs: [],
     dependencyVars: [],
     dependents: ["service_fee_collector_job"],
+    vars: ["service_fee_job/ServiceRate"],
   },
   service_fee_collector_job: {
-    dependencyJobs: ["service_fee_job"],
-    dependencyVars: ["service_fee_job/ServiceRate"],
+    dependencyJobs: ["service_fee_job", "subtotal_job"],
+    dependencyVars: ["service_fee_job/ServiceRate", "subtotal_job/Subtotal"],
     dependents: ["total_before_credits_applied_collector_job"],
+    vars: ["service_fee_collector_job/ServiceFee"],
   },
   total_before_credits_applied_collector_job: {
-    dependencyJobs: ["service_fee_job", "subtotal_job", "delivery_fee_job"],
+    dependencyJobs: [
+      "service_fee_collector_job",
+      "subtotal_job",
+      "delivery_fee_job",
+    ],
     dependencyVars: [
-      "service_fee_job/ServiceRate",
+      "service_fee_collector_job/ServiceFee",
       "subtotal_job/Subtotal",
       "delivery_fee_job/DeliveryFee",
       "delivery_fee_job/ExtraSosDeliveryFee",
     ],
     dependents: ["total_before_credits_applied_collector_job"],
+    vars: [
+      "total_before_credits_applied_collector_job/FinalServiceFee",
+      "total_before_credits_applied_collector_job/FinalDeliveryFee",
+      "total_before_credits_applied_collector_job/TotalBeforeCreditsApplied",
+    ],
   },
 };
 
 export const getReactFlowNodes = (nodesData: NodeData[]): Node[] => {
-  return nodesData.map(
-    (node) =>
-      ({
-        ...node,
-        position: { x: 0, y: 0 },
-        sourcePosition: "right",
-        targetPosition: "left",
-        style: node.parentNode
-          ? { backgroundColor: "rgba(0, 0, 0, 0.1)" }
-          : {
-              backgroundColor: "rgba(0, 0, 0, 0.1)",
-              width: 200,
-              height: 200,
-            },
-      } as Node)
-  );
+  return nodesData.map((node) => {
+    const position = node.parentNode
+      ? getItemPosition(dependencyMap[node.parentNode].vars.indexOf(node.id))
+      : { x: 0, y: 0 };
+    const size = node.parentNode
+      ? { width: ITEM_WIDTH, height: ITEM_HEIGHT }
+      : {
+          width: CONTAINER_WIDTH,
+          height: getContainerHeight(dependencyMap[node.id].vars.length),
+        };
+    return {
+      ...node,
+      type: node.parentNode ? "var" : "job",
+      position: position,
+      sourcePosition: Position.Right,
+      targetPosition: Position.Left,
+      draggable: false,
+      style: {
+        ...size,
+      },
+    } as Node;
+  });
 };
 
 export const getReactFlowEdges = (dependencyMap: DependencyMap): Edge[] => {
@@ -155,6 +189,11 @@ export const getReactFlowEdges = (dependencyMap: DependencyMap): Edge[] => {
         source: varId,
         target: jobId,
         animated: false,
+        markerEnd: {
+          type: MarkerType.Arrow,
+        },
+        zIndex: 9,
+        type: "smoothstep",
       })),
     ];
   }, [] as Edge[]);

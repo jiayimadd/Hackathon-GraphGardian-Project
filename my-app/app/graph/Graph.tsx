@@ -6,11 +6,14 @@ import ReactFlow, {
   applyNodeChanges,
   Background,
   Edge,
+  EdgeMarker,
+  MarkerType,
   Node,
   NodeMouseHandler,
   OnConnect,
   OnEdgesChange,
   OnNodesChange,
+  OnSelectionChangeFunc,
   Position,
 } from "reactflow";
 import "reactflow/dist/style.css";
@@ -24,6 +27,7 @@ import {
   getReactFlowLayoutNodes,
 } from "./data";
 import JobNode from "./JobNode";
+import VarNode from "./VarNode";
 
 const dagreGraph = new dagre.graphlib.Graph();
 dagreGraph.setDefaultEdgeLabel(() => ({}));
@@ -47,8 +51,8 @@ const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
   return nodes.reduce((acc, cur) => {
     const node = { ...cur };
     const nodeWithPosition = dagreGraph.node(node.id);
-    node.targetPosition = Position.Right;
-    node.sourcePosition = Position.Left;
+    node.targetPosition = Position.Left;
+    node.sourcePosition = Position.Right;
 
     // We are shifting the dagre node position (anchor=center center) to the top left
     // so it matches the React Flow node anchor point (top left).
@@ -74,8 +78,8 @@ const Graph: React.FC = () => {
   );
 
   const layoutNodes = React.useMemo(
-    () => getReactFlowLayoutNodes(nodesData),
-    []
+    () => initialNodes.filter((node) => !node.parentNode),
+    [initialNodes]
   );
   const layoutEdges = React.useMemo(
     () => getReactFlowLayoutEdges(dependencyMap),
@@ -100,10 +104,9 @@ const Graph: React.FC = () => {
     return merged;
   }, [initialNodes, layoutedNodes]);
 
-  console.log(mergedNodes);
-
   const [nodes, setNodes] = React.useState(mergedNodes);
   const [edges, setEdges] = React.useState(initialEdges);
+  const [selectedNode, setSelectedNode] = React.useState<undefined | Node>();
 
   const onNodesChange: OnNodesChange = React.useCallback(
     (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
@@ -118,38 +121,91 @@ const Graph: React.FC = () => {
     [setEdges]
   );
 
-  const onNodeClick: NodeMouseHandler = React.useCallback((event, node) => {
-    console.log({
-      event,
-      node,
-    });
-  }, []);
+  const onSelectionChange: OnSelectionChangeFunc = React.useCallback(
+    ({ nodes, edges }) => {
+      if (nodes.length > 0) {
+        setSelectedNode(nodes[0]);
+      } else {
+        setSelectedNode(undefined);
+      }
+    },
+    []
+  );
 
-  const nodeTypes = React.useMemo(() => ({ job: JobNode }), []);
+  const nodesWithHighlight = React.useMemo(() => {
+    if (selectedNode === undefined) return nodes;
+    const id = selectedNode.parentNode || selectedNode.id;
+    const connected: Record<string, boolean> = [
+      ...(selectedNode.parentNode ? [selectedNode.parentNode] : []),
+      ...dependencyMap[id].dependents,
+      ...dependencyMap[id].dependencyVars,
+      ...dependencyMap[id].dependencyJobs,
+    ].reduce(
+      (acc, cur) => ({
+        ...acc,
+        [cur]: true,
+      }),
+      {}
+    );
+    return nodes.map((node) => {
+      if (connected[node.id]) {
+        return { ...node, data: { ...node.data, highlighted: true } };
+      }
+      return node;
+    });
+  }, [selectedNode, nodes]);
+
+  const edgesWithHighlight = React.useMemo(() => {
+    if (selectedNode === undefined) return edges;
+    return edges.map((edge) => {
+      console.log(
+        edge.id,
+        selectedNode.id,
+        selectedNode.parentNode,
+        edge.id.includes(selectedNode.id) ||
+          (selectedNode.parentNode && edge.id.includes(selectedNode.parentNode))
+      );
+      if (
+        edge.id.includes(selectedNode.id) ||
+        (selectedNode.parentNode && edge.id.includes(selectedNode.parentNode))
+      ) {
+        return {
+          ...edge,
+          style: { ...edge.style, stroke: "#00838a", strokeWidth: 2 },
+          markerEnd: {
+            ...(edge.markerEnd as EdgeMarker),
+            color: "#00838a",
+            width: 20,
+            height: 20,
+          },
+          zIndex: 99,
+        };
+      }
+      return edge;
+    });
+  }, [selectedNode, edges]);
+
+  const nodeTypes = React.useMemo(() => ({ job: JobNode, var: VarNode }), []);
 
   return (
     <ReactFlow
-      nodes={nodes}
-      edges={edges}
-      onNodeClick={onNodeClick}
+      nodes={nodesWithHighlight}
+      edges={edgesWithHighlight}
+      onSelectionChange={onSelectionChange}
       onEdgesChange={onEdgesChange}
       onNodesChange={onNodesChange}
       onConnect={onConnect}
       nodeTypes={nodeTypes}
-      zoomOnDoubleClick={false}
-      zoomOnPinch={false}
+      // zoomOnDoubleClick={false}
+      // zoomOnPinch={false}
       zoomOnScroll={false}
       draggable={false}
-      panOnDrag={false}
+      // panOnDrag={false}
       nodesConnectable={false}
       fitView
-      // style={{
-      //   backgroundColor: "#D0C0F7",
-      // }}
+      style={{ backgroundColor: "#f7f7f7" }}
       attributionPosition="top-right"
-    >
-      <Background />
-    </ReactFlow>
+    ></ReactFlow>
   );
 };
 

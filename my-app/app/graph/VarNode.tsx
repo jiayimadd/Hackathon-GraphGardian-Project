@@ -9,14 +9,14 @@ import {
 } from "./layout";
 import { dependencyMap } from "./data";
 
-export interface JobNodeData {
+export interface VarNodeData {
   label: string;
   highlighted?: boolean;
 }
 
-export type JobNodeType = Node<JobNodeData>;
+export type VarNodeType = Node<VarNodeData>;
 
-const JobNode: React.FC<NodeProps<JobNodeData>> = ({
+const VarNode: React.FC<NodeProps<VarNodeData>> = ({
   data,
   id,
   selected,
@@ -24,13 +24,9 @@ const JobNode: React.FC<NodeProps<JobNodeData>> = ({
 }) => {
   const { label, highlighted } = data;
 
-  const size = React.useMemo(
-    () => ({
-      width: CONTAINER_WIDTH,
-      height: getContainerHeight(dependencyMap[id].vars.length),
-    }),
-    [id]
-  );
+  const highlight = Boolean(selected || highlighted);
+
+  const size = { width: ITEM_WIDTH, height: ITEM_HEIGHT };
   // console.log(rest);
   return (
     <div
@@ -54,15 +50,10 @@ const JobNode: React.FC<NodeProps<JobNodeData>> = ({
     >
       <div
         style={{
-          fontSize: "0.8rem",
-          fontWeight: selected ? "500" : "400",
           padding: selected ? 0 : 1,
+          fontSize: "0.7rem",
+          fontWeight: selected ? "500" : "400",
           width: "100%",
-          height: ITEM_HEIGHT,
-          display: "flex",
-          flexDirection: "row",
-          justifyContent: "center",
-          alignItems: "flex-start",
           overflowWrap: "anywhere",
           color: selected ? "#191919" : highlighted ? "#313131" : "#606060",
         }}
@@ -76,4 +67,4 @@ const JobNode: React.FC<NodeProps<JobNodeData>> = ({
   );
 };
 
-export default JobNode;
+export default VarNode;
