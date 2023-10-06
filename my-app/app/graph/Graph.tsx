@@ -41,10 +41,9 @@ import VarNode from "./VarNode";
 import Select from "react-select";
 import ContextMenu, { ContextMenuProps } from "./ContextMenu";
 
-const dagreGraph = new dagre.graphlib.Graph();
-dagreGraph.setDefaultEdgeLabel(() => ({}));
-
 const getLayoutedElements = (nodes: Node[], edges: Edge[]) => {
+  const dagreGraph = new dagre.graphlib.Graph();
+  dagreGraph.setDefaultEdgeLabel(() => ({}));
   dagreGraph.setGraph({ rankdir: "LR" });
 
   nodes.forEach((node) => {
@@ -277,11 +276,72 @@ const Graph: React.FC = () => {
   //   edges: showVars ? edgesWithHighlight : edgesNoVar,
   // });
 
+  const finalNodes = showVars ? nodesWithHighlight : nodesNoVars;
+  const finalEdges = showVars ? edgesWithHighlight : edgesNoVar;
+
+  const [focused, setFocused] = React.useState(false);
+
+  React.useEffect(() => {
+    if (!selectedNode) {
+      setFocused(false);
+    }
+  }, [selectedNode]);
+
+  const focusedNodes = React.useMemo(() => {
+    const highlighedNodes = finalNodes.filter(
+      (node) => node.data.highlighted || node.selected
+    );
+    const highlightedJobNodes = highlighedNodes.filter(
+      (node) => !node.parentNode
+    );
+    const highlightedJobNodesIds: Record<string, boolean> =
+      highlightedJobNodes.reduce((acc, cur) => {
+        return {
+          ...acc,
+          [cur.id]: true,
+        };
+      }, {});
+
+    const dm = { ...dependencyMap };
+
+    Object.keys(dm).forEach((key) => {
+      if (!highlightedJobNodesIds[key]) {
+        delete dm[key];
+      }
+    });
+
+    const highlightedJobNodesEdges = getReactFlowLayoutEdges(dm);
+    const layouted = getLayoutedElements(
+      highlightedJobNodes,
+      highlightedJobNodesEdges
+    );
+
+    const displayNodes = finalNodes.filter(
+      (node) =>
+        highlightedJobNodesIds[node.id] ||
+        (node.parentNode && highlightedJobNodesIds[node.parentNode])
+    );
+    let merged: Node[] = [];
+
+    for (const n of displayNodes) {
+      if (layouted[n.id]) {
+        merged.push(layouted[n.id]);
+      } else {
+        merged.push(n);
+      }
+    }
+    return merged;
+  }, [finalNodes]);
+
+  const focusedEdges = React.useMemo(() => {
+    return finalEdges.filter((edge) => edge.style?.stroke === "#00838a");
+  }, [finalEdges]);
+
   return (
     <ReactFlow
       ref={ref}
-      nodes={showVars ? nodesWithHighlight : nodesNoVars}
-      edges={showVars ? edgesWithHighlight : edgesNoVar}
+      nodes={focused && selectedNode ? focusedNodes : finalNodes}
+      edges={focused && selectedNode ? focusedEdges : finalEdges}
       onSelectionChange={onSelectionChange}
       onEdgesChange={onEdgesChange}
       onNodesChange={onNodesChange}
@@ -308,9 +368,27 @@ const Graph: React.FC = () => {
             onClick={() => {
               setShowVars((prev) => !prev);
             }}
+            disabled={focused}
+            style={{
+              cursor: focused ? "not-allowed" : undefined,
+            }}
           >
             {showVars ? "Hide" : "Show"} Vars
           </button>
+          {selectedNode && (
+            <button
+              className="rounded-full h-[40px] px-[12px] font-[13px] font-[600]"
+              onClick={() => {
+                setFocused((prev) => !prev);
+              }}
+              style={{
+                backgroundColor: focused ? "#eb1700" : "#e7e7e7",
+                color: focused ? "white" : undefined,
+              }}
+            >
+              {focused ? "Unfocus" : "Focus"}
+            </button>
+          )}
           <div className="flex flex-row space-x-4 items-center">
             <div>Search:</div>
             <div className="w-[200px]">
@@ -319,6 +397,7 @@ const Graph: React.FC = () => {
                 isSearchable
                 isClearable
                 inputId="node-select-input"
+                isDisabled={focused}
                 value={
                   selectedNode
                     ? {
