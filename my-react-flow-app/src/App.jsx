@@ -5,6 +5,7 @@ import 'reactflow/dist/style.css';
 import initialNodes from './nodes.jsx';
 import initialEdges from './edges.jsx';
 import parentEdges from './parentEdges.jsx';
+import parentNodes from './parentNodes.jsx';
 
 const rfStyle = {
   backgroundColor: '#D0C0F7',
@@ -44,7 +45,7 @@ export default function App() {
   return (
     <div style={{ width: '100vw', height: '100vh' }}>
       <ReactFlow
-        nodes={nodes}
+        nodes={hidden ? parentNodes : nodes}
         edges={hidden ? parentEdges : edges}
         onNodesChange={onNodesChange}
         onEdgesChange={onEdgesChange}
