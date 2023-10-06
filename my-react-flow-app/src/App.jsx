@@ -12,7 +12,6 @@ const rfStyle = {
 };
 
 export default function App() {
-
   const isChildNode = (node) => node.parentNode;
 
   const [nodes, setNodes] = useState(initialNodes);
